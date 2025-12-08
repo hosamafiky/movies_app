@@ -11,5 +11,5 @@ class ApiConstants {
 }
 
 class ApiEndPoints {
-  final String NOW_PLAYING = '/movie/now_playing';
+  final String NOW_PLAYING_MOVIES = '/movie/now_playing';
 }
