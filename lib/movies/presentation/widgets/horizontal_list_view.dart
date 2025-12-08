@@ -28,7 +28,6 @@ class HorizontalListView extends StatelessWidget {
               UsecaseStatus.loading => const Center(child: CircularProgressIndicator.adaptive()),
               UsecaseStatus.failure => Center(child: Text('Error: ${state.error?.message ?? "Unknown error"}')),
               UsecaseStatus.success => ListView.builder(
-                shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 itemCount: state.movies.length,
