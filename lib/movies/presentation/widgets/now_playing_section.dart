@@ -26,7 +26,7 @@ class NowPlayingSection extends StatelessWidget {
         return FadeIn(
           duration: const Duration(milliseconds: 500),
           child: CarouselSlider(
-            options: CarouselOptions(height: 400.0, viewportFraction: 1.0, onPageChanged: (index, reason) {}),
+            options: CarouselOptions(height: 500.0, viewportFraction: 1.0, onPageChanged: (index, reason) {}),
             items: state.movies.map((item) {
               return GestureDetector(
                 key: const Key('openMovieMinimalDetail'),

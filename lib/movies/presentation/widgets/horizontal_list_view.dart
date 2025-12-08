@@ -3,8 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/enums/usecase_status.dart';
+import 'package:movies_app/core/extensions/context.dart';
 import 'package:movies_app/movies/domain/entities/movie.dart';
 import 'package:movies_app/movies/presentation/logic/movies_cubit.dart';
+import 'package:movies_app/movies/presentation/pages/movie_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/networking/interface/error_response.dart';
@@ -36,9 +38,7 @@ class HorizontalListView extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: InkWell(
-                      onTap: () {
-                        /// TODO : NAVIGATE TO  MOVIE DETAILS
-                      },
+                      onTap: () => context.to(MovieDetailScreen(movie)),
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                         child: CachedNetworkImage(

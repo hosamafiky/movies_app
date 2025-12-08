@@ -14,4 +14,6 @@ class ApiEndPoints {
   final String NOW_PLAYING_MOVIES = '/movie/now_playing';
   final String POPULAR_MOVIES = '/movie/popular';
   final String TOP_RATED_MOVIES = '/movie/top_rated';
+  String MOVIE_DETAILS(int id) => '/movie/$id';
+  String RECOMMENDATIONS(int id) => '${MOVIE_DETAILS(id)}/recommendations';
 }

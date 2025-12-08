@@ -11,6 +11,12 @@ class MoviesState extends Equatable {
     this.topRatedStatus = UsecaseStatus.initial,
     this.topRatedError,
     this.topRatedMovies = const [],
+    this.movieDetailsStatus = UsecaseStatus.initial,
+    this.movieDetailsError,
+    this.movieDetails,
+    this.recommendationsStatus = UsecaseStatus.initial,
+    this.recommendationsError,
+    this.recommendationsMovies = const [],
   });
 
   final UsecaseStatus nowPlayingStatus;
@@ -25,6 +31,14 @@ class MoviesState extends Equatable {
   final ErrorResponse? topRatedError;
   final List<Movie> topRatedMovies;
 
+  final UsecaseStatus movieDetailsStatus;
+  final ErrorResponse? movieDetailsError;
+  final MovieDetails? movieDetails;
+
+  final UsecaseStatus recommendationsStatus;
+  final ErrorResponse? recommendationsError;
+  final List<Movie> recommendationsMovies;
+
   MoviesState copyWith({
     UsecaseStatus? nowPlayingStatus,
     ErrorResponse? nowPlayingError,
@@ -35,6 +49,12 @@ class MoviesState extends Equatable {
     UsecaseStatus? topRatedStatus,
     ErrorResponse? topRatedError,
     List<Movie>? topRatedMovies,
+    UsecaseStatus? movieDetailsStatus,
+    ErrorResponse? movieDetailsError,
+    MovieDetails? movieDetails,
+    UsecaseStatus? recommendationsStatus,
+    ErrorResponse? recommendationsError,
+    List<Movie>? recommendationsMovies,
   }) {
     return MoviesState(
       nowPlayingStatus: nowPlayingStatus ?? this.nowPlayingStatus,
@@ -46,6 +66,12 @@ class MoviesState extends Equatable {
       topRatedStatus: topRatedStatus ?? this.topRatedStatus,
       topRatedError: topRatedError ?? this.topRatedError,
       topRatedMovies: topRatedMovies ?? this.topRatedMovies,
+      movieDetailsStatus: movieDetailsStatus ?? this.movieDetailsStatus,
+      movieDetailsError: movieDetailsError ?? this.movieDetailsError,
+      movieDetails: movieDetails ?? this.movieDetails,
+      recommendationsStatus: recommendationsStatus ?? this.recommendationsStatus,
+      recommendationsError: recommendationsError ?? this.recommendationsError,
+      recommendationsMovies: recommendationsMovies ?? this.recommendationsMovies,
     );
   }
 
@@ -60,5 +86,11 @@ class MoviesState extends Equatable {
     topRatedStatus,
     topRatedError,
     topRatedMovies,
+    movieDetailsStatus,
+    movieDetailsError,
+    movieDetails,
+    recommendationsStatus,
+    recommendationsError,
+    recommendationsMovies,
   ];
 }

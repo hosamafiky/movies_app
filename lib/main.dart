@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movies_app/core/networking/clients/dio_service.dart';
 import 'package:movies_app/movies/presentation/pages/movies_page.dart';
 
 import 'core/dependency_injection/di.dart';
+import 'core/observers/bloc_observer.dart';
 
 void main() async {
+  Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
 
   // Load environment variables
@@ -26,6 +29,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(debugShowCheckedModeBanner: false, home: MainMoviesScreen());
+    return const MaterialApp(debugShowCheckedModeBanner: false, themeMode: ThemeMode.dark, home: MainMoviesScreen());
   }
 }
