@@ -15,4 +15,14 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Either<Failure, List<Movie>>> getNowPlayingMovies() async {
     return await remoteDatasource.getNowPlayingMovies().handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getPopularMovies() async {
+    return await remoteDatasource.getPopularMovies().handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getTopRatedMovies() async {
+    return await remoteDatasource.getTopRatedMovies().handleCallbackWithFailure;
+  }
 }

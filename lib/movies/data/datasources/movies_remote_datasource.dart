@@ -7,12 +7,38 @@ import '../../../core/networking/api_request.dart';
 
 abstract class MoviesRemoteDatasource {
   Future<List<MovieModel>> getNowPlayingMovies();
+  Future<List<MovieModel>> getPopularMovies();
+  Future<List<MovieModel>> getTopRatedMovies();
 }
 
 class MoviesRemoteDatasourceImpl implements MoviesRemoteDatasource {
   @override
   Future<List<MovieModel>> getNowPlayingMovies() async {
     final request = ApiRequest(path: ApiConstants.endPoints.NOW_PLAYING_MOVIES);
+    return await DependencyInjector.instance.sl<DioService>().call<List<MovieModel>>(
+      request,
+      mapper: (json) {
+        final results = json['results'] as List<dynamic>;
+        return results.map((e) => MovieModel.fromMap(e as Map<String, dynamic>)).toList();
+      },
+    );
+  }
+
+  @override
+  Future<List<MovieModel>> getPopularMovies() async {
+    final request = ApiRequest(path: ApiConstants.endPoints.POPULAR_MOVIES);
+    return await DependencyInjector.instance.sl<DioService>().call<List<MovieModel>>(
+      request,
+      mapper: (json) {
+        final results = json['results'] as List<dynamic>;
+        return results.map((e) => MovieModel.fromMap(e as Map<String, dynamic>)).toList();
+      },
+    );
+  }
+
+  @override
+  Future<List<MovieModel>> getTopRatedMovies() async {
+    final request = ApiRequest(path: ApiConstants.endPoints.TOP_RATED_MOVIES);
     return await DependencyInjector.instance.sl<DioService>().call<List<MovieModel>>(
       request,
       mapper: (json) {
