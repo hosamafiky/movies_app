@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:movies_app/core/networking/interface/error_response.dart';
+
+import '../networking/interface/error_response.dart';
 
 class AppException extends Equatable implements Exception {
   final ErrorResponse response;

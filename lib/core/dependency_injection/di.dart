@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 
-import '../../movies/di/setup_movies_dependencies.dart';
+import '../../features/movies/di/setup_movies_dependencies.dart';
 import '../networking/clients/dio_service.dart';
 import '../networking/interface/api_service.dart';
 

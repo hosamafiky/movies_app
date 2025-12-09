@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:movies_app/core/networking/api_request.dart';
-import 'package:movies_app/core/networking/interface/api_service.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../errors/exceptions.dart';
 import '../../extensions/dio_exception.dart';
 import '../api_constants.dart';
+import '../api_request.dart';
 import '../extensions/on_api_request.dart';
+import '../interface/api_service.dart';
 import '../interface/error_response.dart';
 
 class DioService implements ApiService {

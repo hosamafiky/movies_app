@@ -1,4 +1,4 @@
-name: movies_app
+name: cinemahub
 description: "A new Flutter project."
 publish_to: "none"
 version: 0.1.0
@@ -22,6 +22,9 @@ dependencies:
   carousel_slider: ^5.1.1
   google_fonts: ^6.3.3
   shimmer: ^3.0.0
+  flutter_svg: ^2.2.3
+  shared_preferences: ^2.5.3
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
@@ -32,4 +35,28 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/icons/svg/
     - SECRET.env
+
+  fonts:
+    - family: SplineSans
+      fonts:
+        - asset: assets/fonts/spline_sans/SplineSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/spline_sans/SplineSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/spline_sans/SplineSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/spline_sans/SplineSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/spline_sans/SplineSans-Bold.ttf
+          weight: 700
+
+flutter_assets:
+  assets_path:
+    - assets/icons/svg/
+  output_path: lib/core/resources
+  filename: app_assets.dart
+  ignore_comments: true
+  ignore_prefix: true
+  class_name: AppAssets

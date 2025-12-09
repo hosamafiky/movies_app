@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:movies_app/core/networking/interface/error_response.dart';
 
 import '../errors/exceptions.dart';
+import '../networking/interface/error_response.dart';
 
 extension DioExceptionX on DioException {
   AppException get exceptionToThrow {
