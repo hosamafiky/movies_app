@@ -54,6 +54,7 @@ class AppDropdown<T> extends StatelessWidget {
         items: items.map(itemMapper).toList(),
         style: style ?? styles.inputFieldHintTextStyle.copyWith(color: palette.bottomNavigationSelected, fontWeight: AppFontWeight.medium),
         menuMaxHeight: maxHeight,
+        icon: Icon(Icons.keyboard_arrow_down_rounded, color: suffixIconColor ?? palette.bottomNavigationSelected),
         decoration: InputDecoration(hintMaxLines: 1, filled: true, hintText: hintText, fillColor: fillColor, constraints: constraints),
       ),
     );
