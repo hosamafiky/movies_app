@@ -13,4 +13,8 @@ abstract class ColorPalette {
   Color get bottomNavigationSelected;
   Color get bottomNavigationUnselected;
   Color get bottomNavigationBackground;
+
+  /// Input Field Colors
+  Color get inputFieldFillColor;
+  Color get inputFieldHintTextColor;
 }

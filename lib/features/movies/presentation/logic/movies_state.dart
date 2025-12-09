@@ -8,9 +8,12 @@ class MoviesState extends Equatable {
     this.popularStatus = UsecaseStatus.initial,
     this.popularError,
     this.popularMovies = const [],
-    this.topRatedStatus = UsecaseStatus.initial,
-    this.topRatedError,
-    this.topRatedMovies = const [],
+    this.trendingStatus = UsecaseStatus.initial,
+    this.trendingError,
+    this.trendingMovies = const [],
+    this.genreStatus = UsecaseStatus.initial,
+    this.genreError,
+    this.genreMovies = const [],
     this.movieDetailsStatus = UsecaseStatus.initial,
     this.movieDetailsError,
     this.movieDetails,
@@ -27,9 +30,13 @@ class MoviesState extends Equatable {
   final ErrorResponse? popularError;
   final List<Movie> popularMovies;
 
-  final UsecaseStatus topRatedStatus;
-  final ErrorResponse? topRatedError;
-  final List<Movie> topRatedMovies;
+  final UsecaseStatus trendingStatus;
+  final ErrorResponse? trendingError;
+  final List<Movie> trendingMovies;
+
+  final UsecaseStatus genreStatus;
+  final ErrorResponse? genreError;
+  final List<Movie> genreMovies;
 
   final UsecaseStatus movieDetailsStatus;
   final ErrorResponse? movieDetailsError;
@@ -46,9 +53,12 @@ class MoviesState extends Equatable {
     UsecaseStatus? popularStatus,
     ErrorResponse? popularError,
     List<Movie>? popularMovies,
-    UsecaseStatus? topRatedStatus,
-    ErrorResponse? topRatedError,
-    List<Movie>? topRatedMovies,
+    UsecaseStatus? trendingStatus,
+    ErrorResponse? trendingError,
+    List<Movie>? trendingMovies,
+    UsecaseStatus? genreStatus,
+    ErrorResponse? genreError,
+    List<Movie>? genreMovies,
     UsecaseStatus? movieDetailsStatus,
     ErrorResponse? movieDetailsError,
     MovieDetails? movieDetails,
@@ -63,9 +73,12 @@ class MoviesState extends Equatable {
       popularStatus: popularStatus ?? this.popularStatus,
       popularError: popularError ?? this.popularError,
       popularMovies: popularMovies ?? this.popularMovies,
-      topRatedStatus: topRatedStatus ?? this.topRatedStatus,
-      topRatedError: topRatedError ?? this.topRatedError,
-      topRatedMovies: topRatedMovies ?? this.topRatedMovies,
+      trendingStatus: trendingStatus ?? this.trendingStatus,
+      trendingError: trendingError ?? this.trendingError,
+      trendingMovies: trendingMovies ?? this.trendingMovies,
+      genreStatus: genreStatus ?? this.genreStatus,
+      genreError: genreError ?? this.genreError,
+      genreMovies: genreMovies ?? this.genreMovies,
       movieDetailsStatus: movieDetailsStatus ?? this.movieDetailsStatus,
       movieDetailsError: movieDetailsError ?? this.movieDetailsError,
       movieDetails: movieDetails ?? this.movieDetails,
@@ -83,9 +96,12 @@ class MoviesState extends Equatable {
     popularStatus,
     popularError,
     popularMovies,
-    topRatedStatus,
-    topRatedError,
-    topRatedMovies,
+    trendingStatus,
+    trendingError,
+    trendingMovies,
+    genreStatus,
+    genreError,
+    genreMovies,
     movieDetailsStatus,
     movieDetailsError,
     movieDetails,

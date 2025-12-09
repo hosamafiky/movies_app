@@ -1,4 +1,4 @@
-import 'genre.dart';
+import '../../../genre/domain/entities/genre.dart';
 import 'movie.dart';
 
 class MovieDetails extends Movie {
@@ -11,6 +11,7 @@ class MovieDetails extends Movie {
     required super.title,
     required super.voteAverage,
     required super.backdropPath,
+    required super.posterPath,
     required super.overview,
     required super.releaseDate,
     required this.genres,

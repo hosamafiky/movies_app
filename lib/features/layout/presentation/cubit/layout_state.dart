@@ -5,7 +5,7 @@ class LayoutState extends Equatable {
 
   final int currentIndex;
 
-  List<Widget> get pages => const [HomePage(), MainMoviesScreen(), TvShowsPage(), SearchPage(), WatchlistPage()];
+  List<Widget> get pages => const [HomePage(), MoviesScreen(), TvShowsPage(), SearchPage(), WatchlistPage()];
 
   Widget get currentPage => pages[currentIndex];
 

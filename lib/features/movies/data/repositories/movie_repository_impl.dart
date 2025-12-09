@@ -13,8 +13,8 @@ class MovieRepositoryImpl implements MovieRepository {
   const MovieRepositoryImpl({required this.remoteDatasource});
 
   @override
-  Future<Either<Failure, List<Movie>>> getMovies(String path) async {
-    return await remoteDatasource.getMovies(path).handleCallbackWithFailure;
+  Future<Either<Failure, List<Movie>>> getMovies(String path, {Map<String, dynamic>? queryParameters}) async {
+    return await remoteDatasource.getMovies(path, queryParameters: queryParameters).handleCallbackWithFailure;
   }
 
   @override

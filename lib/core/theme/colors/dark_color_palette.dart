@@ -15,4 +15,9 @@ class DarkColorPalette implements ColorPalette {
   Color get bottomNavigationSelected => ColorPalette.whiteColor;
   @override
   Color get bottomNavigationUnselected => Color(0xFF8FBDCC);
+
+  @override
+  Color get inputFieldFillColor => Color(0xFF21404A);
+  @override
+  Color get inputFieldHintTextColor => Color(0xFF8FBDCC);
 }

@@ -13,10 +13,18 @@ class ApiConstants {
 }
 
 class ApiEndPoints {
+  /// Movies Endpoints
   String TRENDING_MOVIES(TimeWindow timeWindow) => '/trending/movie/${timeWindow.name}';
+  final String DISCOVER_MOVIES = '/discover/movie';
   final String NOW_PLAYING_MOVIES = '/movie/now_playing';
   final String POPULAR_MOVIES = '/movie/popular';
   final String TOP_RATED_MOVIES = '/movie/top_rated';
   String MOVIE_DETAILS(int id) => '/movie/$id';
   String RECOMMENDATIONS(int id) => '${MOVIE_DETAILS(id)}/recommendations';
+
+  /// TV Shows Endpoints
+  String TRENDING_TV_SHOWS(TimeWindow timeWindow) => '/trending/tv/${timeWindow.name}';
+
+  /// Genres Endpoints
+  final String GENRES = '/genre/movie/list';
 }

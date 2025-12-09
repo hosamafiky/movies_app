@@ -7,6 +7,7 @@ class MovieModel extends Movie {
     required super.title,
     required super.voteAverage,
     required super.backdropPath,
+    required super.posterPath,
     required super.overview,
     required super.releaseDate,
   });
@@ -18,6 +19,7 @@ class MovieModel extends Movie {
       title: movie.title,
       voteAverage: movie.voteAverage,
       backdropPath: movie.backdropPath,
+      posterPath: movie.posterPath,
       overview: movie.overview,
       releaseDate: movie.releaseDate,
     );
@@ -30,6 +32,7 @@ class MovieModel extends Movie {
       title: map['title'],
       voteAverage: (map['vote_average'] as num).toDouble(),
       backdropPath: map['backdrop_path'] ?? '',
+      posterPath: map['poster_path'] ?? '',
       overview: map['overview'] ?? '',
       releaseDate: map['release_date'] ?? '',
     );
@@ -42,6 +45,7 @@ class MovieModel extends Movie {
       'title': title,
       'vote_average': voteAverage,
       'backdrop_path': backdropPath,
+      'poster_path': posterPath,
       'overview': overview,
       'release_date': releaseDate,
     };

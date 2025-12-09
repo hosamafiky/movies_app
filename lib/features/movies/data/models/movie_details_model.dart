@@ -1,5 +1,5 @@
+import '../../../genre/data/models/genre_model.dart';
 import '../../domain/entities/movie_details.dart';
-import 'genre_model.dart';
 
 class MovieDetailsModel extends MovieDetails {
   const MovieDetailsModel({
@@ -8,6 +8,7 @@ class MovieDetailsModel extends MovieDetails {
     required super.title,
     required super.voteAverage,
     required super.backdropPath,
+    required super.posterPath,
     required super.overview,
     required super.releaseDate,
     required super.genres,
@@ -21,6 +22,7 @@ class MovieDetailsModel extends MovieDetails {
       title: map['title'] ?? '',
       voteAverage: (map['vote_average'] as num?)?.toDouble() ?? 0.0,
       backdropPath: map['backdrop_path'] ?? '',
+      posterPath: map['poster_path'] ?? '',
       overview: map['overview'] ?? '',
       releaseDate: map['release_date'] ?? '',
       genres: List<GenreModel>.from(map['genres']?.map((genre) => GenreModel.fromMap(genre)) ?? []),

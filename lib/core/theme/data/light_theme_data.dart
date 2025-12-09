@@ -14,7 +14,20 @@ ThemeData get lightThemeData {
     hoverColor: Colors.transparent,
     highlightColor: Colors.transparent,
     scaffoldBackgroundColor: colors.scaffoldBGColor,
-    appBarTheme: AppBarThemeData(toolbarHeight: 72.h, backgroundColor: colors.scaffoldBGColor, elevation: 0, titleTextStyle: styles.appBarTitleStyle),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: colors.inputFieldFillColor,
+      hintStyle: styles.inputFieldHintTextStyle,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide.none),
+    ),
+    menuTheme: MenuThemeData(style: MenuStyle(backgroundColor: WidgetStateProperty.all(colors.scaffoldBGColor))),
+    appBarTheme: AppBarThemeData(
+      surfaceTintColor: Colors.transparent,
+      toolbarHeight: 72.h,
+      backgroundColor: colors.scaffoldBGColor,
+      elevation: 0,
+      titleTextStyle: styles.appBarTitleStyle,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       elevation: 0,

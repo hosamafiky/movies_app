@@ -8,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../core/dependency_injection/di.dart';
 import '../../../../core/enums/usecase_status.dart';
 import '../../../../core/networking/interface/error_response.dart';
-import '../../domain/entities/genre.dart';
+import '../../../genre/domain/entities/genre.dart';
 import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_details.dart';
 import '../logic/movies_cubit.dart';
@@ -64,7 +64,7 @@ class MovieDetailContent extends StatelessWidget {
                         ).createShader(Rect.fromLTRB(0.0, 0.0, rect.width, rect.height));
                       },
                       blendMode: BlendMode.dstIn,
-                      child: CachedNetworkImage(width: MediaQuery.of(context).size.width, imageUrl: state.details.fullBackdropPath(), fit: BoxFit.cover),
+                      child: CachedNetworkImage(width: MediaQuery.of(context).size.width, imageUrl: state.details.fullBackdropPath, fit: BoxFit.cover),
                     ),
                   ),
                 ),
@@ -177,7 +177,7 @@ class MovieDetailContent extends StatelessWidget {
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(4.0)),
               child: CachedNetworkImage(
-                imageUrl: recommendation.fullBackdropPath(),
+                imageUrl: recommendation.fullBackdropPath,
                 placeholder: (context, url) => Shimmer.fromColors(
                   baseColor: Colors.grey[850]!,
                   highlightColor: Colors.grey[800]!,

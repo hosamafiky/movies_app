@@ -9,7 +9,7 @@ class GetMoviesUsecase {
 
   const GetMoviesUsecase({required this.repository});
 
-  Future<Either<Failure, List<Movie>>> call(String path) async {
-    return await repository.getMovies(path);
+  Future<Either<Failure, List<Movie>>> call(String path, {Map<String, dynamic>? queryParameters}) async {
+    return await repository.getMovies(path, queryParameters: queryParameters);
   }
 }

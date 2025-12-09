@@ -1,3 +1,4 @@
+import 'package:cinemahub/core/enums/time_window.dart';
 import 'package:cinemahub/core/networking/api_constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,14 +42,25 @@ class MoviesCubit extends Cubit<MoviesState> {
     );
   }
 
-  Future<void> fetchTopRatedMovies() async {
-    emit(state.copyWith(topRatedStatus: UsecaseStatus.loading));
+  Future<void> fetchTrendingMovies({TimeWindow timeWindow = TimeWindow.day}) async {
+    emit(state.copyWith(trendingStatus: UsecaseStatus.loading));
 
-    final result = await getMoviesUsecase(ApiConstants.endPoints.TOP_RATED_MOVIES);
+    final result = await getMoviesUsecase(ApiConstants.endPoints.TRENDING_MOVIES(timeWindow));
 
     result.fold(
-      (failure) => emit(state.copyWith(topRatedStatus: UsecaseStatus.failure, topRatedError: failure.response)),
-      (movies) => emit(state.copyWith(topRatedStatus: UsecaseStatus.success, topRatedMovies: movies)),
+      (failure) => emit(state.copyWith(trendingStatus: UsecaseStatus.failure, trendingError: failure.response)),
+      (movies) => emit(state.copyWith(trendingStatus: UsecaseStatus.success, trendingMovies: movies)),
+    );
+  }
+
+  Future<void> fetchMoviesByGenre(int genreId) async {
+    emit(state.copyWith(genreStatus: UsecaseStatus.loading));
+
+    final result = await getMoviesUsecase(ApiConstants.endPoints.DISCOVER_MOVIES, queryParameters: {'with_genres': genreId});
+
+    result.fold(
+      (failure) => emit(state.copyWith(genreStatus: UsecaseStatus.failure, genreError: failure.response)),
+      (movies) => emit(state.copyWith(genreStatus: UsecaseStatus.success, genreMovies: movies)),
     );
   }
 

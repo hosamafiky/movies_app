@@ -15,4 +15,9 @@ class LightColorPalette implements ColorPalette {
   Color get bottomNavigationSelected => Color(0xFF0D171C);
   @override
   Color get bottomNavigationUnselected => Color(0xFF4A879C);
+
+  @override
+  Color get inputFieldFillColor => Color(0xFFE8F0F5);
+  @override
+  Color get inputFieldHintTextColor => Color(0xFF4A879C);
 }

@@ -14,7 +14,19 @@ ThemeData get darkThemeData {
     highlightColor: Colors.transparent,
     brightness: Brightness.dark,
     scaffoldBackgroundColor: colors.scaffoldBGColor,
-    appBarTheme: AppBarThemeData(toolbarHeight: 72.h, backgroundColor: colors.scaffoldBGColor, elevation: 0, titleTextStyle: styles.appBarTitleStyle),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: colors.inputFieldFillColor,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide.none),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+    ),
+    appBarTheme: AppBarThemeData(
+      surfaceTintColor: Colors.transparent,
+      toolbarHeight: 72.h,
+      backgroundColor: colors.scaffoldBGColor,
+      elevation: 0,
+      titleTextStyle: styles.appBarTitleStyle,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       elevation: 0,
