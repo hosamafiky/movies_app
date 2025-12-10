@@ -2,28 +2,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinemahub/core/extensions/context.dart';
 import 'package:cinemahub/features/movies/presentation/pages/movie_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
-import '../../../../core/theme/styles/text_styles.dart';
-import '../../../theme/presentation/cubit/theme_cubit.dart';
 import '../../domain/entities/movie.dart';
 
 class MovieListWidget extends StatelessWidget {
-  const MovieListWidget(this.movie, {super.key});
+  const MovieListWidget(this.movie, {super.key, this.showYear = false});
 
   final Movie movie;
+  final bool showYear;
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<ThemeCubit>().state.palette;
-    final styles = TextStyles(palette);
+    final styles = context.watchTextStyles;
     return InkWell(
       onTap: () => context.to(MovieDetailsPage(movie)),
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: 160.w),
         child: Column(
-          spacing: 16.h,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
@@ -42,7 +39,9 @@ class MovieListWidget extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 16.h),
             Text(movie.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: styles.title1Style),
+            if (showYear && movie.releaseDate.isNotEmpty) Text(DateFormat('yyyy-MM-dd').parse(movie.releaseDate).year.toString(), style: styles.body1Style),
           ],
         ),
       ),

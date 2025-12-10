@@ -14,8 +14,6 @@ class CustomGridView<B extends StateStreamableSource<S>, S, T> extends Stateless
 
   @override
   Widget build(BuildContext context) {
-    // final palette = context.watch<ThemeCubit>().state.palette;
-    // final styles = TextStyles(palette);
     return BlocSelector<B, S, ({UsecaseStatus status, ErrorResponse? error, List<T> items})>(
       selector: dataSelector,
       builder: (context, data) {

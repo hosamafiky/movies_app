@@ -17,6 +17,9 @@ class TextStyles {
   /// TITLES
   TextStyle get title1Style => TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.medium, height: 24 / 16);
 
+  /// BODY TEXT
+  TextStyle get body1Style => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.regular, height: 20 / 14, color: palette.bottomNavigationUnselected);
+
   /// BOTTOM NAVIGATION BAR
   TextStyle get bottomNavigationSelectedLabelStyle =>
       TextStyle(color: palette.bottomNavigationSelected, fontSize: 12.sp, fontWeight: AppFontWeight.medium, height: 18 / 12);

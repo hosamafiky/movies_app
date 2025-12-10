@@ -1,9 +1,7 @@
+import 'package:cinemahub/core/extensions/context.dart';
 import 'package:cinemahub/core/theme/colors/color_palette.dart';
 import 'package:cinemahub/core/theme/styles/app_font_weights.dart';
-import 'package:cinemahub/core/theme/styles/text_styles.dart';
-import 'package:cinemahub/features/theme/presentation/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppDropdown<T> extends StatelessWidget {
@@ -42,8 +40,8 @@ class AppDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<ThemeCubit>().state.palette;
-    final styles = TextStyles(palette);
+    final palette = context.watchPalette;
+    final styles = context.watchTextStyles;
     return DropdownButtonHideUnderline(
       child: DropdownButtonFormField<T>(
         validator: validator,

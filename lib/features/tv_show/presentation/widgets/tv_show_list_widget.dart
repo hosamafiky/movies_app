@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../core/theme/styles/text_styles.dart';
-import '../../../theme/presentation/cubit/theme_cubit.dart';
+import '../../../../core/extensions/context.dart';
 import '../../domain/entities/tv_show.dart';
 
 class TVShowListWidget extends StatelessWidget {
@@ -15,8 +13,8 @@ class TVShowListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<ThemeCubit>().state.palette;
-    final styles = TextStyles(palette);
+    final palette = context.watchPalette;
+    final styles = context.watchTextStyles;
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 160.w),
       child: Column(

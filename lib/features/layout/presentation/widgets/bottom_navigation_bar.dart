@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extensions/assets.dart';
+import '../../../../core/extensions/context.dart';
 import '../../../../core/resources/app_assets.dart';
-import '../../../theme/presentation/cubit/theme_cubit.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<ThemeCubit>().state.palette;
+    final palette = context.watchPalette;
     return BlocSelector<LayoutCubit, LayoutState, int>(
       selector: (state) => state.currentIndex,
       builder: (context, index) {

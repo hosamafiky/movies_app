@@ -20,6 +20,9 @@ class ApiEndPoints {
   final String POPULAR_MOVIES = '/movie/popular';
   final String TOP_RATED_MOVIES = '/movie/top_rated';
   String MOVIE_DETAILS(int id) => '/movie/$id';
+  String MOVIE_VIDEOS(int id) => '/movie/$id/videos';
+  String MOVIE_CREDITS(int id) => '/movie/$id/credits';
+  String SIMILAR_MOVIES(int id) => '${MOVIE_DETAILS(id)}/similar';
   String RECOMMENDATIONS(int id) => '${MOVIE_DETAILS(id)}/recommendations';
 
   /// TV Shows Endpoints

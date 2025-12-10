@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/extensions/error_handler.dart';
+import '../../domain/entities/actor.dart';
 import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_details.dart';
+import '../../domain/entities/trailer.dart';
 import '../../domain/repository/movie_repository.dart';
 import '../datasources/movies_remote_datasource.dart';
 
@@ -23,7 +25,12 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getMovieRecommendations(int id) async {
-    return await remoteDatasource.getMovieRecommendations(id).handleCallbackWithFailure;
+  Future<Either<Failure, List<Trailer>>> getMovieTrailers(int id) async {
+    return await remoteDatasource.getMovieTrailers(id).handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, List<Actor>>> getMovieCast(int id) async {
+    return await remoteDatasource.getMovieCast(id).handleCallbackWithFailure;
   }
 }
