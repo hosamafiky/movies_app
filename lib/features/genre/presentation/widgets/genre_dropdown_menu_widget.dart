@@ -18,7 +18,9 @@ class GenreDropdownMenuWidget extends StatelessWidget {
         return AppDropdown<Genre>(
           onChanged: (Genre? genre) {
             if (genre == null) return;
-            context.read<MoviesCubit>().fetchMoviesByGenre(genre.id);
+            final selectedSortBy = context.read<GenreCubit>().state.selectedSortBy;
+            context.read<GenreCubit>().selectGenre(genre);
+            context.read<MoviesCubit>().fetchFilteredMovies(genre.id, selectedSortBy?.value);
           },
           constraints: BoxConstraints(maxWidth: 180.w),
           maxHeight: 200.h,

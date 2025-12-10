@@ -25,17 +25,9 @@ class MovieGridWidget extends StatelessWidget {
           progressIndicatorBuilder: (context, url, progress) {
             return Center(child: CircularProgressIndicator.adaptive(value: progress.progress));
           },
-
-          // placeholder: (context, url) => Shimmer.fromColors(
-          //   baseColor: Colors.grey[850]!,
-          //   highlightColor: Colors.grey[800]!,
-          //   child: Container(
-          //     height: 213.h,
-          //     width: 160.w,
-          //     decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(8.0)),
-          //   ),
-          // ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) {
+            return const Center(child: Icon(Icons.error, color: Colors.redAccent));
+          },
         ),
       ),
     );

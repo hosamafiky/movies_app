@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/theme/styles/text_styles.dart';
 import '../../../theme/presentation/cubit/theme_cubit.dart';
@@ -31,15 +30,7 @@ class MovieListWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 height: 213.h,
                 imageUrl: movie.fullPosterPath,
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: Colors.grey[850]!,
-                  highlightColor: Colors.grey[800]!,
-                  child: Container(
-                    height: 213.h,
-                    width: 160.w,
-                    decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(8.0)),
-                  ),
-                ),
+                progressIndicatorBuilder: (context, url, progress) => Center(child: CircularProgressIndicator.adaptive(value: progress.progress)),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),

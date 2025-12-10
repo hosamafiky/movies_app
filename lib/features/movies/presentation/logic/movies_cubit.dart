@@ -53,10 +53,13 @@ class MoviesCubit extends Cubit<MoviesState> {
     );
   }
 
-  Future<void> fetchMoviesByGenre(int genreId) async {
+  Future<void> fetchFilteredMovies(int? genreId, String? sortBy) async {
     emit(state.copyWith(genreStatus: UsecaseStatus.loading));
 
-    final result = await getMoviesUsecase(ApiConstants.endPoints.DISCOVER_MOVIES, queryParameters: {'with_genres': genreId});
+    final result = await getMoviesUsecase(
+      ApiConstants.endPoints.DISCOVER_MOVIES,
+      queryParameters: {'with_genres': genreId, 'sort_by': sortBy}..removeWhere((key, value) => value == null),
+    );
 
     result.fold(
       (failure) => emit(state.copyWith(genreStatus: UsecaseStatus.failure, genreError: failure.response)),

@@ -17,8 +17,8 @@ ThemeData get darkThemeData {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: colors.inputFieldFillColor,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide.none),
-      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r), borderSide: BorderSide.none),
+      contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
     ),
     appBarTheme: AppBarThemeData(
       surfaceTintColor: Colors.transparent,

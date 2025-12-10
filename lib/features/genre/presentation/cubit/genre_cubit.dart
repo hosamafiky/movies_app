@@ -1,3 +1,4 @@
+import 'package:cinemahub/core/enums/sort_by.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,5 +23,13 @@ class GenreCubit extends Cubit<GenreState> {
       (failure) => emit(state.copyWith(status: UsecaseStatus.failure, error: failure.response)),
       (genres) => emit(state.copyWith(status: UsecaseStatus.success, genres: genres)),
     );
+  }
+
+  void selectGenre(Genre? genre) {
+    emit(state.copyWith(selectedGenre: genre));
+  }
+
+  void selectSortBy(SortBy? sortBy) {
+    emit(state.copyWith(selectedSortBy: sortBy));
   }
 }

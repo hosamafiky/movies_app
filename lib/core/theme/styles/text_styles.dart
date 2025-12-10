@@ -25,5 +25,5 @@ class TextStyles {
 
   /// INPUT FIELDS
   TextStyle get inputFieldHintTextStyle =>
-      TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 24 / 16, color: palette.inputFieldHintTextColor);
+      TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 18 / 16, color: palette.inputFieldHintTextColor);
 }

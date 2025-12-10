@@ -49,6 +49,7 @@ class AppDropdown<T> extends StatelessWidget {
         validator: validator,
         initialValue: value,
         onChanged: onChanged,
+        isDense: true,
         borderRadius: BorderRadius.circular(16.r),
         iconEnabledColor: ColorPalette.whiteColor,
         items: items.map(itemMapper).toList(),
