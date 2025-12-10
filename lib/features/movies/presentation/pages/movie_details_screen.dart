@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cinemahub/core/widgets/horizontal_list_view.dart';
 import 'package:cinemahub/features/movies/domain/entities/movie_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/dependency_injection/di.dart';
 import '../../domain/entities/movie.dart';
 import '../logic/movies_cubit.dart';
+import '../widgets/movie_list_widget.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
@@ -39,6 +41,7 @@ class MovieDetailsBody extends StatelessWidget {
         title: Text(movie.title, style: GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.bold)),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 50.h),
         child: BlocSelector<MoviesCubit, MoviesState, Movie>(
           selector: (state) => state.movieDetails ?? movie,
           builder: (context, movie) {
@@ -72,6 +75,11 @@ class MovieDetailsBody extends StatelessWidget {
                   ),
                 ),
                 if (movie is MovieDetails) _MovieGenresWidget(movie),
+                HorizontalListView<MoviesCubit, MoviesState, Movie>(
+                  dataSelector: (state) => (status: state.recommendationsStatus, error: state.recommendationsError, items: state.recommendationsMovies),
+                  sectionTitle: "Recommendations",
+                  itemBuilder: (item) => MovieListWidget(item),
+                ),
               ],
             );
           },
