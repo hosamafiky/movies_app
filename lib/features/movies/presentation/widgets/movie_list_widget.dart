@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cinemahub/core/extensions/context.dart';
+import 'package:cinemahub/features/movies/presentation/pages/movie_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,27 +18,33 @@ class MovieListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.watch<ThemeCubit>().state.palette;
     final styles = TextStyles(palette);
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 160.w),
-      child: Column(
-        spacing: 16.h,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              child: CachedNetworkImage(
-                width: 160.w,
-                fit: BoxFit.cover,
-                height: 213.h,
-                imageUrl: movie.fullPosterPath,
-                progressIndicatorBuilder: (context, url, progress) => Center(child: CircularProgressIndicator.adaptive(value: progress.progress)),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+    return InkWell(
+      onTap: () => context.to(MovieDetailsPage(movie)),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 160.w),
+        child: Column(
+          spacing: 16.h,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                child: Hero(
+                  tag: movie.id,
+                  child: CachedNetworkImage(
+                    width: 160.w,
+                    fit: BoxFit.cover,
+                    height: 213.h,
+                    imageUrl: movie.fullPosterPath,
+                    progressIndicatorBuilder: (context, url, progress) => Center(child: CircularProgressIndicator.adaptive(value: progress.progress)),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                  ),
+                ),
               ),
             ),
-          ),
-          Text(movie.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: styles.title1Style),
-        ],
+            Text(movie.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: styles.title1Style),
+          ],
+        ),
       ),
     );
   }

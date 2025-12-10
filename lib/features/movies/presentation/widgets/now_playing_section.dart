@@ -30,9 +30,7 @@ class NowPlayingSection extends StatelessWidget {
             items: state.movies.map((item) {
               return GestureDetector(
                 key: const Key('openMovieMinimalDetail'),
-                onTap: () {
-                  /// TODO : NAVIGATE TO MOVIE DETAILS
-                },
+                onTap: () {},
                 child: Stack(
                   children: [
                     ShaderMask(

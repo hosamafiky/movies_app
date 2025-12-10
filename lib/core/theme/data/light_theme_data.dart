@@ -28,6 +28,11 @@ ThemeData get lightThemeData {
       elevation: 0,
       titleTextStyle: styles.appBarTitleStyle,
     ),
+    chipTheme: ChipThemeData(
+      backgroundColor: colors.chipBackgroundColor,
+      labelStyle: styles.chipLabelStyle,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.5.h),
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       elevation: 0,

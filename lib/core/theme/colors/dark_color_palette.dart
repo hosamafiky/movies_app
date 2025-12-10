@@ -20,4 +20,9 @@ class DarkColorPalette implements ColorPalette {
   Color get inputFieldFillColor => Color(0xFF21404A);
   @override
   Color get inputFieldHintTextColor => Color(0xFF8FBDCC);
+
+  @override
+  Color get chipBackgroundColor => Color(0xFF21404A);
+  @override
+  Color get chipLabelColor => ColorPalette.whiteColor;
 }

@@ -20,4 +20,9 @@ class LightColorPalette implements ColorPalette {
   Color get inputFieldFillColor => Color(0xFFE8F0F5);
   @override
   Color get inputFieldHintTextColor => Color(0xFF4A879C);
+
+  @override
+  Color get chipBackgroundColor => Color(0xFFE8F0F5);
+  @override
+  Color get chipLabelColor => Color(0xFF0D171C);
 }

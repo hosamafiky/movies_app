@@ -17,4 +17,8 @@ abstract class ColorPalette {
   /// Input Field Colors
   Color get inputFieldFillColor;
   Color get inputFieldHintTextColor;
+
+  /// Chip Colors
+  Color get chipBackgroundColor;
+  Color get chipLabelColor;
 }

@@ -36,6 +36,13 @@ ThemeData get darkThemeData {
       selectedLabelStyle: styles.bottomNavigationSelectedLabelStyle,
       unselectedLabelStyle: styles.bottomNavigationUnselectedLabelStyle,
     ),
+    chipTheme: ChipThemeData(
+      backgroundColor: colors.chipBackgroundColor,
+      side: BorderSide.none,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+      labelStyle: styles.chipLabelStyle,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.5.h),
+    ),
     // Add other theme properties as needed
   );
 }

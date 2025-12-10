@@ -1,22 +1,19 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:ui';
+
+import 'package:cinemahub/features/movies/domain/entities/movie_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/enums/usecase_status.dart';
-import '../../../../core/networking/interface/error_response.dart';
-import '../../../genre/domain/entities/genre.dart';
 import '../../domain/entities/movie.dart';
-import '../../domain/entities/movie_details.dart';
 import '../logic/movies_cubit.dart';
 
-class MovieDetailScreen extends StatelessWidget {
+class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
 
-  const MovieDetailScreen(this.movie, {super.key});
+  const MovieDetailsPage(this.movie, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,176 +22,78 @@ class MovieDetailScreen extends StatelessWidget {
         ..fetchMovieDetails(movie.id)
         ..fetchMovieRecommendations(movie.id),
       lazy: false,
-      child: Scaffold(body: MovieDetailContent(movie)),
+      child: Scaffold(body: MovieDetailsBody(movie)),
     );
   }
 }
 
-class MovieDetailContent extends StatelessWidget {
-  const MovieDetailContent(this.movie, {super.key});
+class MovieDetailsBody extends StatelessWidget {
+  const MovieDetailsBody(this.movie, {super.key});
 
   final Movie movie;
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<MoviesCubit, MoviesState, ({UsecaseStatus status, ErrorResponse? error, Movie details})>(
-      selector: (state) {
-        return (status: state.movieDetailsStatus, error: state.movieDetailsError, details: state.movieDetails ?? movie);
-      },
-      builder: (context, state) {
-        return switch (state.status) {
-          UsecaseStatus.loading => const Center(child: CircularProgressIndicator.adaptive()),
-          UsecaseStatus.initial => const Center(child: CircularProgressIndicator.adaptive()),
-          UsecaseStatus.success => CustomScrollView(
-            key: const Key('movieDetailScrollView'),
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                expandedHeight: 250.0,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: FadeIn(
-                    duration: const Duration(milliseconds: 500),
-                    child: ShaderMask(
-                      shaderCallback: (rect) {
-                        return const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.transparent, Colors.black, Colors.black, Colors.transparent],
-                          stops: [0.0, 0.5, 1.0, 1.0],
-                        ).createShader(Rect.fromLTRB(0.0, 0.0, rect.width, rect.height));
-                      },
-                      blendMode: BlendMode.dstIn,
-                      child: CachedNetworkImage(width: MediaQuery.of(context).size.width, imageUrl: state.details.fullBackdropPath, fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: FadeInUp(
-                  from: 20,
-                  duration: const Duration(milliseconds: 500),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(state.details.title, style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w700, letterSpacing: 1.2)),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
-                              decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(4.0)),
-                              child: Text(state.details.releaseDate.split('-')[0], style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
-                            ),
-                            const SizedBox(width: 16.0),
-                            Row(
-                              children: [
-                                const Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                const SizedBox(width: 4.0),
-                                Text(
-                                  (state.details.voteAverage).toStringAsFixed(1),
-                                  style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500, letterSpacing: 1.2),
-                                ),
-                                const SizedBox(width: 4.0),
-                                Text('(${state.details.voteAverage})', style: const TextStyle(fontSize: 1.0, fontWeight: FontWeight.w500, letterSpacing: 1.2)),
-                              ],
-                            ),
-                            if (state.details is MovieDetails) ...[
-                              const SizedBox(width: 16.0),
-                              Text(
-                                _showDuration((state.details as MovieDetails).runtime),
-                                style: const TextStyle(color: Colors.black54, fontSize: 16.0, fontWeight: FontWeight.w500, letterSpacing: 1.2),
-                              ),
-                            ],
-                          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(movie.title, style: GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.bold)),
+      ),
+      body: SingleChildScrollView(
+        child: BlocSelector<MoviesCubit, MoviesState, Movie>(
+          selector: (state) => state.movieDetails ?? movie,
+          builder: (context, movie) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 320.h,
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(image: NetworkImage(movie.fullBackdropPath), fit: BoxFit.cover),
+                          ),
                         ),
-                        const SizedBox(height: 20.0),
-                        Text(state.details.overview, style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, letterSpacing: 1.2)),
-                        const SizedBox(height: 8.0),
-                        Text(
-                          'Genres: ${_showGenres((state.details as MovieDetails).genres)}',
-                          style: const TextStyle(color: Colors.black54, fontSize: 12.0, fontWeight: FontWeight.w500, letterSpacing: 1.2),
+                      ),
+                      Hero(
+                        tag: movie.id,
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: Image.network(movie.fullPosterPath, fit: BoxFit.cover, width: 160.w),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
-                sliver: SliverToBoxAdapter(
-                  child: FadeInUp(
-                    from: 20,
-                    duration: const Duration(milliseconds: 500),
-                    child: Text("More like this".toUpperCase(), style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500, letterSpacing: 1.2)),
-                  ),
-                ),
-              ),
-              // Tab(text: 'More like this'.toUpperCase()),
-              SliverPadding(padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0), sliver: _showRecommendations()),
-            ],
-          ),
-          UsecaseStatus.failure => Center(child: Text(state.error!.message)),
-        };
-      },
+                if (movie is MovieDetails) _MovieGenresWidget(movie),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
+}
 
-  String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += '${genre.name}, ';
-    }
+class _MovieGenresWidget extends StatelessWidget {
+  const _MovieGenresWidget(this.movie);
 
-    if (result.isEmpty) {
-      return result;
-    }
+  final Movie movie;
 
-    return result.substring(0, result.length - 2);
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
-  }
-
-  Widget _showRecommendations() {
-    return BlocSelector<MoviesCubit, MoviesState, ({UsecaseStatus status, ErrorResponse? error, List<Movie> recommendations})>(
-      selector: (state) => (status: state.recommendationsStatus, error: state.recommendationsError, recommendations: state.recommendationsMovies),
-      builder: (context, state) => SliverGrid(
-        delegate: SliverChildBuilderDelegate((context, index) {
-          final recommendation = state.recommendations[index];
-          return FadeInUp(
-            from: 20,
-            duration: const Duration(milliseconds: 500),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              child: CachedNetworkImage(
-                imageUrl: recommendation.fullBackdropPath,
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: Colors.grey[850]!,
-                  highlightColor: Colors.grey[800]!,
-                  child: Container(
-                    height: 170.0,
-                    width: 120.0,
-                    decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(8.0)),
-                  ),
-                ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                height: 180.0,
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
-        }, childCount: state.recommendations.length),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(mainAxisSpacing: 8.0, crossAxisSpacing: 8.0, childAspectRatio: 0.7, crossAxisCount: 3),
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+      child: Wrap(
+        spacing: 12.w,
+        runSpacing: 0.h,
+        children: (movie as MovieDetails).genres.map((genre) => Chip(label: Text(genre.name))).toList(),
       ),
     );
   }

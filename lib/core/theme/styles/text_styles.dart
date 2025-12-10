@@ -26,4 +26,7 @@ class TextStyles {
   /// INPUT FIELDS
   TextStyle get inputFieldHintTextStyle =>
       TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 18 / 16, color: palette.inputFieldHintTextColor);
+
+  /// CHIPS
+  TextStyle get chipLabelStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.medium, height: 20 / 14, color: palette.chipLabelColor);
 }
