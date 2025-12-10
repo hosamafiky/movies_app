@@ -1,0 +1,84 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build release version of the app for iOS"
+  lane :build_release_ios do
+    match
+    gym(
+      scheme: 'Runner',
+      workspace: 'Runner.xcworkspace',
+      configuration: 'Release',
+      output_name: 'CinemaHub.ipa',
+    )
+  end
+
+  lane :cleanup_file do |options|
+    file_path = options[:path]
+    file_name = file_path.split("/").last
+
+    if File.exist?(file_path)
+      sh "rm -r #{file_path}"
+      UI.message("#{file_name} has been removed.")
+    else
+      UI.message("#{file_name} does not exist, no action needed.")
+    end
+  end
+
+  lane :install_pods do
+    sh "pod deintegrate; pod install --repo-update"
+  end
+
+  lane :remove_ipa_and_dsym do |options|
+    app_name = options[:app_name] || "CinemaHub" # Default value
+    ipa_path = "/Users/hussam/Desktop/Learning/movies_app/ios/#{app_name}.ipa"
+    dsym_path = "/Users/hussam/Desktop/Learning/movies_app/ios/#{app_name}.app.dSYM.zip"
+
+    cleanup_file(path: ipa_path)
+    cleanup_file(path: dsym_path)
+  end
+
+  desc "Deploy app beta-version to Firebase App Distribution"
+  lane :firebase_distribution do
+    latest_release = firebase_app_distribution_get_latest_release(
+      app: "1:257562948724:ios:dad450e3055017b8240d21",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+    )
+    if latest_release.nil?
+      UI.message("No releases found, creating a new one.")
+      increment_version_number(version_number: "1.0.0")
+      increment_build_number(build_number: 1)
+    else
+      UI.message("Latest release found: #{latest_release[:displayVersion]} (#{latest_release[:buildVersion]})")
+      current_version = latest_release[:displayVersion]
+      current_build = latest_release[:buildVersion]
+      increment_version_number(version_number: current_version)
+      increment_build_number(build_number: current_build.to_i + 1)
+    end
+    cleanup_file(path: "/Users/hussam/Desktop/Learning/movies_app/ios/Podfile.lock")
+    install_pods
+    build_release_ios
+    firebase_app_distribution(
+      app: '1:257562948724:ios:dad450e3055017b8240d21',
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      testers: "hosamafiky@gmail.com",
+      ipa_path: '/Users/hussam/Desktop/Learning/movies_app/ios/CinemaHub.ipa',
+      release_notes: 'New beta release',
+    )
+    remove_ipa_and_dsym
+  end
+end

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.000144">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="01: firebase_app_distribution_get_latest_release" time="1.24813">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="02: increment_version_number" time="0.169125">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: increment_build_number" time="0.130887">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: Switch to ios cleanup_file lane" time="0.000125">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: rm -r /Users/hussam/Desktop/Learning/movies_app/ios/Podfile.lock" time="0.00344">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: Switch to ios install_pods lane" time="7.6e-05">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: pod deintegrate; pod install --repo-update" time="1.242653">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: Switch to ios build_release_ios lane" time="0.000242">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: match" time="7.564844">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: gym" time="26.77363">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="11: firebase_app_distribution" time="34.308906">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="12: Switch to ios remove_ipa_and_dsym lane" time="0.000214">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="13: Switch to ios cleanup_file lane" time="8.5e-05">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="14: rm -r /Users/hussam/Desktop/Learning/movies_app/ios/CinemaHub.ipa" time="0.012873">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="15: Switch to ios cleanup_file lane" time="0.000259">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="16: rm -r /Users/hussam/Desktop/Learning/movies_app/ios/CinemaHub.app.dSYM.zip" time="0.009899">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

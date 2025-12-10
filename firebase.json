@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "ios": {
+        "default": {
+          "projectId": "learningcinemahub",
+          "appId": "1:257562948724:ios:dad450e3055017b8240d21",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "learningcinemahub",
+          "configurations": {
+            "ios": "1:257562948724:ios:dad450e3055017b8240d21"
+          }
+        }
+      }
+    }
+  }
+}
