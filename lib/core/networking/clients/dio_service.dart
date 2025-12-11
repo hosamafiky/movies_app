@@ -1,41 +1,26 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:cinemahub/core/networking/interface/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../errors/exceptions.dart';
 import '../../extensions/dio_exception.dart';
-import '../api_constants.dart';
 import '../api_request.dart';
 import '../extensions/on_api_request.dart';
-import '../interface/api_service.dart';
 import '../interface/error_response.dart';
 
 class DioService implements ApiService {
-  late final Dio _dio;
+  final Dio _dio;
 
-  DioService() {
-    _initDio();
-  }
-
-  Map<String, dynamic> get queries {
-    return _dio.options.queryParameters;
-  }
-
-  void _initDio() {
-    _dio = Dio()
-      ..options.baseUrl = ApiConstants.BASE_URL
-      ..options.connectTimeout = const Duration(seconds: ApiConstants.connectTimeoutDurationInSeconds)
-      ..options.receiveTimeout = const Duration(seconds: ApiConstants.connectTimeoutDurationInSeconds)
-      ..options.responseType = ResponseType.json
-      ..options.headers = {HttpHeaders.acceptHeader: ContentType.json};
-
+  DioService({required Dio dio}) : _dio = dio {
     if (kDebugMode) {
       _dio.interceptors.add(PrettyDioLogger());
     }
   }
+
+  Map<String, dynamic> get queries => _dio.options.queryParameters;
 
   @override
   Future<T> call<T extends Object?>(ApiRequest request, {FutureOr<T> Function(dynamic json)? mapper}) async {
@@ -56,10 +41,5 @@ class DioService implements ApiService {
     } catch (e) {
       throw UnknownException(SimpleErrorResponse(code: 0, message: e.toString()));
     }
-  }
-
-  @override
-  Future<void> addApiKey(String apiKey) async {
-    _dio.options.queryParameters['api_key'] = apiKey;
   }
 }

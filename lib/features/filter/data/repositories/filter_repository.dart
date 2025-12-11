@@ -3,8 +3,8 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/genre.dart';
-import '../../domain/repositories/genre_repository.dart';
-import '../datasources/genre_remote_datasource.dart';
+import '../../domain/repositories/filter_repository.dart';
+import '../datasources/filter_remote_datasource.dart';
 
 class GenreRepositoryImpl implements GenreRepository {
   final GenreRemoteDataSource remoteDataSource;

@@ -1,5 +1,5 @@
-import 'package:cinemahub/features/genre/presentation/cubit/genre_cubit.dart';
-import 'package:cinemahub/features/movies/presentation/logic/movies_cubit.dart';
+import 'package:cinemahub/features/filter/presentation/cubit/filter_cubit.dart';
+import 'package:cinemahub/features/movies/presentation/logic/filtered_movies_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,15 +12,16 @@ class GenreDropdownMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<GenreCubit, GenreState, List<Genre>>(
+    return BlocSelector<FilterCubit, FilterState, List<Genre>>(
       selector: (state) => state.genres,
       builder: (context, genres) {
         return AppDropdown<Genre>(
+          value: context.read<FilterCubit>().state.filters.genre,
           onChanged: (Genre? genre) {
             if (genre == null) return;
-            final selectedSortBy = context.read<GenreCubit>().state.selectedSortBy;
-            context.read<GenreCubit>().selectGenre(genre);
-            context.read<MoviesCubit>().fetchFilteredMovies(genre.id, selectedSortBy?.value);
+            context.read<FilterCubit>().selectGenre(genre);
+            final filters = context.read<FilterCubit>().state.filters;
+            context.read<FilteredMoviesCubit>().fetchFilteredMovies(filters);
           },
           constraints: BoxConstraints(maxWidth: 180.w),
           maxHeight: 200.h,

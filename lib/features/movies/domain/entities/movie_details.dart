@@ -1,4 +1,4 @@
-import '../../../genre/domain/entities/genre.dart';
+import '../../../filter/domain/entities/genre.dart';
 import 'movie.dart';
 
 class MovieDetails extends Movie {

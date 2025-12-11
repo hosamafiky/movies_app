@@ -7,16 +7,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/enums/usecase_status.dart';
 import '../../../../core/networking/interface/error_response.dart';
 import '../../domain/entities/movie.dart';
-import '../logic/movies_cubit.dart';
+import '../logic/now_playing_movies_cubit.dart';
 
 class NowPlayingSection extends StatelessWidget {
   const NowPlayingSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<MoviesCubit, MoviesState, ({UsecaseStatus status, ErrorResponse? error, List<Movie> movies})>(
+    return BlocSelector<NowPlayingMoviesCubit, NowPlayingMoviesState, ({UsecaseStatus status, ErrorResponse? error, List<Movie> movies})>(
       selector: (state) {
-        return (status: state.nowPlayingStatus, error: state.nowPlayingError, movies: state.nowPlayingMovies);
+        return (status: state.status, error: state.error, movies: state.movies);
       },
       builder: (context, state) {
         final hasError = state.status == UsecaseStatus.failure && state.error != null;

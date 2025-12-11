@@ -1,17 +1,18 @@
 import 'package:cinemahub/core/widgets/grid_view.dart';
+import 'package:cinemahub/features/movies/domain/usecases/get_movies_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/enums/sort_by.dart';
-import '../../../genre/domain/entities/genre.dart';
-import '../../../genre/presentation/cubit/genre_cubit.dart';
-import '../../../genre/presentation/widgets/genre_dropdown_menu_widget.dart';
+import '../../../filter/presentation/cubit/filter_cubit.dart';
+import '../../../filter/presentation/widgets/genre_dropdown_menu_widget.dart';
+import '../../../filter/presentation/widgets/sort_by_icon_button.dart';
+import '../../../filter/presentation/widgets/year_filter_dropdown.dart';
 import '../../domain/entities/movie.dart';
-import '../logic/movies_cubit.dart';
+import '../logic/filtered_movies_cubit.dart';
+import '../logic/popular_movies_cubit.dart';
 import '../widgets/movie_grid_widget.dart';
-import '../widgets/sort_by_drop_down.dart';
 
 class MoviesScreen extends StatelessWidget {
   const MoviesScreen({super.key});
@@ -20,8 +21,9 @@ class MoviesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => DependencyInjector.instance.sl<MoviesCubit>()..fetchPopularMovies()),
-        BlocProvider(create: (context) => DependencyInjector.instance.sl<GenreCubit>()),
+        BlocProvider(create: (context) => DependencyInjector.instance.sl<PopularMoviesCubit>()..fetchPopularMovies()),
+        BlocProvider(create: (context) => DependencyInjector.instance.sl<FilteredMoviesCubit>()),
+        BlocProvider(create: (context) => DependencyInjector.instance.sl<FilterCubit>()),
       ],
       child: MoviesPageBody(),
     );
@@ -38,33 +40,36 @@ class MoviesPageBody extends StatefulWidget {
 class _MoviesPageBodyState extends State<MoviesPageBody> {
   @override
   void initState() {
-    context.read<GenreCubit>().fetchGendres();
+    context.read<FilterCubit>().fetchGendres();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Movies')),
+      appBar: AppBar(title: Text('Movies'), actions: [SortByIconButton()]),
       body: NestedScrollView(
         headerSliverBuilder: (context, isInnerBoxScrolled) {
           return [
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-              sliver: SliverToBoxAdapter(
-                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [GenreDropdownMenuWidget(), SortByDropDown()]),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                child: Wrap(spacing: 16.w, runSpacing: 16.h, alignment: WrapAlignment.start, children: [GenreDropdownMenuWidget(), YearFilterDropdown()]),
               ),
             ),
           ];
         },
-        body: BlocSelector<GenreCubit, GenreState, ({Genre? selectedGenre, SortBy? selectedSortBy})>(
-          selector: (state) => (selectedGenre: state.selectedGenre, selectedSortBy: state.selectedSortBy),
-          builder: (context, data) {
-            return CustomGridView<MoviesCubit, MoviesState, Movie>(
-              dataSelector: (state) {
-                if (data.selectedGenre == null) return (status: state.popularStatus, error: state.popularError, items: state.popularMovies);
-                return (status: state.genreStatus, error: state.genreError, items: state.genreMovies);
-              },
+        body: BlocSelector<FilterCubit, FilterState, GetMoviesFilters>(
+          selector: (state) => state.filters,
+          builder: (context, filters) {
+            if (!filters.hasFilters) {
+              return CustomGridView<PopularMoviesCubit, PopularMoviesState, Movie>(
+                dataSelector: (state) => (status: state.status, error: state.error, items: state.movies),
+                itemBuilder: (movie) => MovieGridWidget(movie),
+              );
+            }
+            return CustomGridView<FilteredMoviesCubit, FilteredMoviesState, Movie>(
+              dataSelector: (state) => (status: state.status, error: state.error, items: state.movies),
               itemBuilder: (movie) => MovieGridWidget(movie),
             );
           },

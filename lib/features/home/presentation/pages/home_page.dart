@@ -1,6 +1,6 @@
 import 'package:cinemahub/core/dependency_injection/di.dart';
 import 'package:cinemahub/features/home/presentation/cubit/home_cubit.dart';
-import 'package:cinemahub/features/movies/presentation/logic/movies_cubit.dart';
+import 'package:cinemahub/features/movies/presentation/logic/trending_movies_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeCubit()),
-        BlocProvider(create: (context) => DependencyInjector.instance.sl<MoviesCubit>()),
+        BlocProvider(create: (context) => DependencyInjector.instance.sl<TrendingMoviesCubit>()),
         BlocProvider(create: (context) => DependencyInjector.instance.sl<TVShowCubit>()),
       ],
       child: HomePageBody(),
@@ -39,7 +39,7 @@ class HomePageBody extends StatefulWidget {
 class _HomePageBodyState extends State<HomePageBody> {
   @override
   void initState() {
-    context.read<MoviesCubit>().fetchTrendingMovies();
+    context.read<TrendingMoviesCubit>().fetchTrendingMovies();
     context.read<TVShowCubit>().fetchTrendingTVShows();
     super.initState();
   }
@@ -53,9 +53,9 @@ class _HomePageBodyState extends State<HomePageBody> {
         padding: EdgeInsets.only(bottom: 50.h),
         child: Column(
           children: [
-            HorizontalListView<MoviesCubit, MoviesState, Movie>(
+            HorizontalListView<TrendingMoviesCubit, TrendingMoviesState, Movie>(
               sectionTitle: 'Trending Movies',
-              dataSelector: (state) => (status: state.trendingStatus, error: state.trendingError, items: state.trendingMovies),
+              dataSelector: (state) => (status: state.status, error: state.error, items: state.movies),
               itemBuilder: (item) => MovieListWidget(item),
             ),
 

@@ -19,6 +19,7 @@ class TextStyles {
 
   /// BODY TEXT
   TextStyle get body1Style => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.regular, height: 20 / 14, color: palette.bottomNavigationUnselected);
+  TextStyle get body2Style => TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 24 / 16, color: palette.chipLabelColor);
 
   /// BOTTOM NAVIGATION BAR
   TextStyle get bottomNavigationSelectedLabelStyle =>

@@ -1,4 +1,4 @@
-import '../../../genre/domain/entities/genre.dart';
+import '../../domain/entities/genre.dart';
 
 class GenreModel extends Genre {
   const GenreModel({required super.id, required super.name});
