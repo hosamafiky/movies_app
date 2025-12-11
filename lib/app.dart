@@ -1,3 +1,5 @@
+import 'package:cinemahub/core/dependency_injection/di.dart';
+import 'package:cinemahub/features/filter/presentation/cubit/filter_cubit.dart';
 import 'package:cinemahub/features/theme/presentation/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => ThemeCubit(isDarkMode: true))],
+      providers: [
+        BlocProvider(create: (context) => ThemeCubit(isDarkMode: true)),
+        BlocProvider(lazy: false, create: (context) => DependencyInjector.instance.sl<FilterCubit>()..fetchGendres()),
+      ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeMode>(
         selector: (state) => state.mode,
         builder: (context, mode) {

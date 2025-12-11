@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/app_constants.dart';
 import '../../domain/entities/movie.dart';
 
 class MovieListWidget extends StatelessWidget {
@@ -16,6 +17,9 @@ class MovieListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final styles = context.watchTextStyles;
+    if (movie.fullPosterPath == null && movie.fullBackdropPath == null) {
+      print('MovieListWidget: Both posterPath and backdropPath are null for movie id: ${movie.title}');
+    }
     return InkWell(
       onTap: () => context.to(MovieDetailsPage(movie)),
       child: ConstrainedBox(
@@ -24,18 +28,32 @@ class MovieListWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                child: Hero(
-                  tag: movie.id,
-                  child: CachedNetworkImage(
-                    width: 160.w,
-                    fit: BoxFit.cover,
-                    height: 213.h,
-                    imageUrl: movie.fullPosterPath,
-                    progressIndicatorBuilder: (context, url, progress) => Center(child: CircularProgressIndicator.adaptive(value: progress.progress)),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+              child: CachedNetworkImage(
+                width: 160.w,
+                fit: BoxFit.cover,
+                height: 213.h,
+                imageUrl: movie.fullPosterPath ?? movie.fullBackdropPath ?? '',
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppConstants.radius),
+                    image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
                   ),
+                ),
+                progressIndicatorBuilder: (context, url, progress) => Center(child: CircularProgressIndicator.adaptive(value: progress.progress)),
+                errorWidget: (context, url, error) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppConstants.radius),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.5),
+                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.7),
+                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.5),
+                      ],
+                    ),
+                  ),
+                  child: Icon(Icons.warning_amber, size: 40.sp, color: Colors.redAccent),
                 ),
               ),
             ),

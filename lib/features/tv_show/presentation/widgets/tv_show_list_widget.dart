@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/app_constants.dart';
 import '../../../../core/extensions/context.dart';
 import '../../domain/entities/tv_show.dart';
 
@@ -23,7 +23,7 @@ class TVShowListWidget extends StatelessWidget {
         children: [
           Expanded(
             child: DecoratedBox(
-              decoration: BoxDecoration(color: palette.bottomNavigationUnselected, borderRadius: BorderRadius.circular(8.r)),
+              decoration: BoxDecoration(color: palette.bottomNavigationUnselected, borderRadius: BorderRadius.circular(AppConstants.radius)),
               child: CachedNetworkImage(
                 width: 160.w,
                 fit: BoxFit.cover,
@@ -31,20 +31,27 @@ class TVShowListWidget extends StatelessWidget {
                 imageUrl: tvShow.fullPosterPath,
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
+                    borderRadius: BorderRadius.circular(AppConstants.radius),
                     image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
                   ),
                 ),
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: Colors.grey[850]!,
-                  highlightColor: Colors.grey[800]!,
-                  child: Container(
-                    height: 213.h,
-                    width: 160.w,
-                    decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(8.0)),
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(child: CircularProgressIndicator.adaptive(value: downloadProgress.progress)),
+                errorWidget: (context, url, error) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppConstants.radius),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.5),
+                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.7),
+                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.5),
+                      ],
+                    ),
                   ),
+                  child: Icon(Icons.warning_amber, size: 40.sp, color: Colors.redAccent),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error, size: 40),
               ),
             ),
           ),

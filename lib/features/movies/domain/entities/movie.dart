@@ -6,8 +6,8 @@ class Movie extends Equatable {
   final String title, backdropPath, posterPath, overview, releaseDate;
   final double voteAverage;
 
-  String get fullBackdropPath => 'https://image.tmdb.org/t/p/w500$backdropPath';
-  String get fullPosterPath => 'https://image.tmdb.org/t/p/w500$posterPath';
+  String? get fullBackdropPath => backdropPath.isEmpty ? null : 'https://image.tmdb.org/t/p/w500$backdropPath';
+  String? get fullPosterPath => posterPath.isEmpty ? null : 'https://image.tmdb.org/t/p/w500$posterPath';
 
   const Movie({
     required this.id,

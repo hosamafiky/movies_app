@@ -25,7 +25,7 @@ class MovieGridWidget extends StatelessWidget {
               width: 160.w,
               fit: BoxFit.cover,
               height: 213.h,
-              imageUrl: movie.fullPosterPath,
+              imageUrl: movie.fullPosterPath ?? movie.fullBackdropPath!,
               progressIndicatorBuilder: (context, url, progress) {
                 return Center(child: CircularProgressIndicator.adaptive(value: progress.progress));
               },

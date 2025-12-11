@@ -32,6 +32,7 @@ Future<String> _retrieveApiKey() async {
     debugPrint('SECRET.env not found, using valid fallback');
   }
 
+  // Try to get API_KEY from environment variables or dart-define
   final apiKey = dotenv.env['API_KEY'] ?? const String.fromEnvironment('API_KEY');
 
   if (apiKey.isEmpty) {

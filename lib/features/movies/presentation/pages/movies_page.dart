@@ -23,7 +23,6 @@ class MoviesScreen extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => DependencyInjector.instance.sl<PopularMoviesCubit>()..fetchPopularMovies()),
         BlocProvider(create: (context) => DependencyInjector.instance.sl<FilteredMoviesCubit>()),
-        BlocProvider(create: (context) => DependencyInjector.instance.sl<FilterCubit>()),
       ],
       child: MoviesPageBody(),
     );

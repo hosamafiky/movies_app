@@ -5,6 +5,9 @@ class TvShowsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('TV Shows Page')));
+    return Scaffold(
+      appBar: AppBar(title: const Text('Popular TV Shows')),
+      body: const Center(child: Text('TV Shows List Placeholder')),
+    );
   }
 }

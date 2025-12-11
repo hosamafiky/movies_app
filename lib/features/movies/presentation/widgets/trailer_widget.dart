@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
+import '../../../../core/app_constants.dart';
 import '../../../../core/extensions/duration.dart';
 
 class TrailerWidget extends StatefulWidget {
@@ -51,7 +52,7 @@ class _TrailerWidgetState extends State<TrailerWidget> with AutomaticKeepAliveCl
                       Center(child: CircularProgressIndicator.adaptive(value: downloadProgress.progress)),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
+                      borderRadius: BorderRadius.circular(AppConstants.radius),
                       image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../app_constants.dart';
 import '../colors/dark_color_palette.dart';
 import '../styles/text_styles.dart';
 
@@ -17,7 +18,7 @@ ThemeData get darkThemeData {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: colors.inputFieldFillColor,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r), borderSide: BorderSide.none),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radius), borderSide: BorderSide.none),
       contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
     ),
     appBarTheme: AppBarThemeData(
@@ -39,7 +40,7 @@ ThemeData get darkThemeData {
     chipTheme: ChipThemeData(
       backgroundColor: colors.chipBackgroundColor,
       side: BorderSide.none,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radius)),
       labelStyle: styles.chipLabelStyle,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.5.h),
     ),
