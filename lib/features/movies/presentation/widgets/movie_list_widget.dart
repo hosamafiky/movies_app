@@ -17,9 +17,6 @@ class MovieListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final styles = context.watchTextStyles;
-    if (movie.fullPosterPath == null && movie.fullBackdropPath == null) {
-      print('MovieListWidget: Both posterPath and backdropPath are null for movie id: ${movie.title}');
-    }
     return InkWell(
       onTap: () => context.to(MovieDetailsPage(movie)),
       child: ConstrainedBox(
