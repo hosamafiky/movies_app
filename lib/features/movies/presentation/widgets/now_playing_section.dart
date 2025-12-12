@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cinemahub/core/widgets/app_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,7 +49,7 @@ class NowPlayingSection extends StatelessWidget {
                         ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
                       blendMode: BlendMode.dstIn,
-                      child: CachedNetworkImage(height: 560.0, imageUrl: item.fullBackdropPath!, fit: BoxFit.cover),
+                      child: AppCachedNetworkImage(height: 560.0, imageUrl: item.fullBackdropPath!, fit: BoxFit.cover),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,

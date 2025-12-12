@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cinemahub/core/widgets/app_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,36 +23,8 @@ class TVShowListWidget extends StatelessWidget {
         children: [
           Expanded(
             child: DecoratedBox(
-              decoration: BoxDecoration(color: palette.bottomNavigationUnselected, borderRadius: BorderRadius.circular(AppConstants.radius)),
-              child: CachedNetworkImage(
-                width: 160.w,
-                fit: BoxFit.cover,
-                height: 213.h,
-                imageUrl: tvShow.fullPosterPath,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(AppConstants.radius),
-                    image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                  ),
-                ),
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(child: CircularProgressIndicator.adaptive(value: downloadProgress.progress)),
-                errorWidget: (context, url, error) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(AppConstants.radius),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.5),
-                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.7),
-                        context.watchPalette.bottomNavigationUnselected.withValues(alpha: 0.5),
-                      ],
-                    ),
-                  ),
-                  child: Icon(Icons.warning_amber, size: 40.sp, color: Colors.redAccent),
-                ),
-              ),
+              decoration: BoxDecoration(color: palette.bottomNavigationUnselected, borderRadius: BorderRadius.circular(AppConstants.radius.r)),
+              child: AppCachedNetworkImage(width: 160.w, fit: BoxFit.cover, height: 213.h, imageUrl: tvShow.fullPosterPath),
             ),
           ),
           Text(tvShow.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: styles.title1Style),

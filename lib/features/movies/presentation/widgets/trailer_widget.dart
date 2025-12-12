@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinemahub/core/extensions/context.dart';
+import 'package:cinemahub/core/widgets/app_cached_network_image.dart';
 import 'package:cinemahub/features/movies/domain/entities/trailer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-import '../../../../core/app_constants.dart';
 import '../../../../core/extensions/duration.dart';
 
 class TrailerWidget extends StatefulWidget {
@@ -45,18 +44,7 @@ class _TrailerWidgetState extends State<TrailerWidget> with AutomaticKeepAliveCl
             children: [
               AspectRatio(
                 aspectRatio: 16 / 9,
-                child: CachedNetworkImage(
-                  imageUrl: 'https://img.youtube.com/vi/${widget.trailer.key}/0.jpg',
-                  fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(child: CircularProgressIndicator.adaptive(value: downloadProgress.progress)),
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppConstants.radius),
-                      image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
+                child: AppCachedNetworkImage(imageUrl: 'https://img.youtube.com/vi/${widget.trailer.key}/0.jpg', fit: BoxFit.cover),
               ),
               SizedBox(height: 16.h),
               Text(widget.trailer.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: styles.title1Style),

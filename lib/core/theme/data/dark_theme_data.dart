@@ -18,7 +18,7 @@ ThemeData get darkThemeData {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: colors.inputFieldFillColor,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radius), borderSide: BorderSide.none),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radius.r), borderSide: BorderSide.none),
       contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
     ),
     appBarTheme: AppBarThemeData(
@@ -40,7 +40,7 @@ ThemeData get darkThemeData {
     chipTheme: ChipThemeData(
       backgroundColor: colors.chipBackgroundColor,
       side: BorderSide.none,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radius)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radius.r)),
       labelStyle: styles.chipLabelStyle,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.5.h),
     ),

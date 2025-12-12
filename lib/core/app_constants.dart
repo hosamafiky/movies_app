@@ -1,5 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class AppConstants {
-  static double radius = 12.r;
+  static const double radius = 12;
 }
