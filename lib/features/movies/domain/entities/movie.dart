@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class Movie extends Equatable {
   final int id;
@@ -19,6 +20,10 @@ class Movie extends Equatable {
     required this.overview,
     required this.releaseDate,
   });
+
+  factory Movie.empty() {
+    return Movie(id: 0, genreIds: [], title: BoneMock.title, voteAverage: 0.0, backdropPath: '', posterPath: '', overview: '', releaseDate: '');
+  }
 
   @override
   List<Object?> get props => [id, genreIds, title, voteAverage, backdropPath, posterPath, overview, releaseDate];

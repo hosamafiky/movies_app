@@ -37,10 +37,14 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
-  @override
-  void initState() {
+  void _loadData() {
     context.read<TrendingMoviesCubit>().fetchTrendingMovies();
     context.read<TVShowCubit>().fetchTrendingTVShows();
+  }
+
+  @override
+  void initState() {
+    _loadData();
     super.initState();
   }
 
