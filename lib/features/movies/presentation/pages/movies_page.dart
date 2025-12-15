@@ -65,11 +65,13 @@ class _MoviesPageBodyState extends State<MoviesPageBody> {
               return CustomGridView<PopularMoviesCubit, PopularMoviesState, Movie>(
                 dataSelector: (state) => (status: state.status, error: state.error, items: state.movies),
                 itemBuilder: (movie) => MovieGridWidget(movie),
+                skeleton: MovieGridWidget.skeleton(),
               );
             }
             return CustomGridView<FilteredMoviesCubit, FilteredMoviesState, Movie>(
               dataSelector: (state) => (status: state.status, error: state.error, items: state.movies),
               itemBuilder: (movie) => MovieGridWidget(movie),
+              skeleton: MovieGridWidget.skeleton(),
             );
           },
         ),

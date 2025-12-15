@@ -7,10 +7,12 @@ import '../enums/usecase_status.dart';
 import '../networking/interface/error_response.dart';
 
 class CustomGridView<B extends StateStreamableSource<S>, S, T> extends StatelessWidget {
-  const CustomGridView({super.key, required this.dataSelector, required this.itemBuilder});
+  const CustomGridView({super.key, required this.dataSelector, required this.itemBuilder, required this.skeleton, this.skeletonItemCount = 6});
 
   final ({UsecaseStatus status, ErrorResponse? error, List<T> items}) Function(S) dataSelector;
   final Widget Function(T item) itemBuilder;
+  final Widget skeleton;
+  final int skeletonItemCount;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +22,8 @@ class CustomGridView<B extends StateStreamableSource<S>, S, T> extends Stateless
         return FadeIn(
           duration: const Duration(milliseconds: 500),
           child: switch (data.status) {
-            UsecaseStatus.initial => const Center(child: CircularProgressIndicator.adaptive()),
-            UsecaseStatus.loading => const Center(child: CircularProgressIndicator.adaptive()),
             UsecaseStatus.failure => Center(child: Text('Error: ${data.error?.message ?? "Unknown error"}')),
-            UsecaseStatus.success => GridView.builder(
+            _ => GridView.builder(
               key: const Key('customGridView'),
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -32,8 +32,9 @@ class CustomGridView<B extends StateStreamableSource<S>, S, T> extends Stateless
                 crossAxisSpacing: 12.w,
                 childAspectRatio: 173 / 230,
               ),
-              itemCount: data.items.length,
+              itemCount: data.status != UsecaseStatus.success ? skeletonItemCount : data.items.length,
               itemBuilder: (context, index) {
+                if (data.status != UsecaseStatus.success) return skeleton;
                 final item = data.items[index];
                 return itemBuilder(item);
               },

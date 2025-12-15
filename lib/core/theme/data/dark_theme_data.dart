@@ -17,7 +17,7 @@ ThemeData get darkThemeData {
     scaffoldBackgroundColor: colors.scaffoldBGColor,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: colors.inputFieldFillColor,
+      fillColor: colors.inputFieldFill,
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radius.r), borderSide: BorderSide.none),
       contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
     ),
@@ -38,7 +38,7 @@ ThemeData get darkThemeData {
       unselectedLabelStyle: styles.bottomNavigationUnselectedLabelStyle,
     ),
     chipTheme: ChipThemeData(
-      backgroundColor: colors.chipBackgroundColor,
+      backgroundColor: colors.chipBackground,
       side: BorderSide.none,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radius.r)),
       labelStyle: styles.chipLabelStyle,

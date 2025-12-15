@@ -23,10 +23,7 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
@@ -56,6 +53,14 @@ class DefaultFirebaseOptions {
     projectId: 'learningcinemahub',
     storageBucket: 'learningcinemahub.firebasestorage.app',
     iosBundleId: 'com.learning.cinemahub',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDtL2DS8C2ugRkLQBqUGAx1RO7T6bIS_VQ',
+    appId: '1:257562948724:android:5db3214660447c21240d21',
+    messagingSenderId: '257562948724',
+    projectId: 'learningcinemahub',
+    storageBucket: 'learningcinemahub.firebasestorage.app',
   );
 
 }

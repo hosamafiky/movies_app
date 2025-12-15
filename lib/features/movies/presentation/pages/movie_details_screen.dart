@@ -72,25 +72,30 @@ class MovieDetailsBody extends StatelessWidget {
                 HorizontalListView<MovieDetailsCubit, MovieDetailsState, Actor>(
                   dataSelector: (state) => (status: state.castStatus, error: state.castError, items: state.cast),
                   sectionTitle: "Cast",
-                  listHeight: 230.h,
-                  listSeparation: 32.w,
+                  height: 230.h,
+                  itemSpacing: 32.w,
                   itemBuilder: (item) => ActorWidget(item),
+                  skeleton: ActorWidget.skeleton(),
                 ),
                 HorizontalListView<MovieDetailsCubit, MovieDetailsState, Trailer>(
                   dataSelector: (state) => (status: state.trailersStatus, error: state.trailersError, items: state.trailers),
                   sectionTitle: "Trailers",
-                  listHeight: 203.h,
+                  height: 203.h,
                   itemBuilder: (item) => TrailerWidget(item),
+                  skeleton: TrailerWidget.skeleton(),
                 ),
                 HorizontalListView<MovieDetailsCubit, MovieDetailsState, Movie>(
                   dataSelector: (state) => (status: state.similarStatus, error: state.similarError, items: state.similarMovies),
                   sectionTitle: "Similar Movies",
                   itemBuilder: (item) => MovieListWidget(item, showYear: true),
+                  skeleton: MovieListWidget.skeleton(),
                 ),
+
                 HorizontalListView<MovieDetailsCubit, MovieDetailsState, Movie>(
                   dataSelector: (state) => (status: state.recommendationsStatus, error: state.recommendationsError, items: state.recommendationsMovies),
                   sectionTitle: "Recommendations",
                   itemBuilder: (item) => MovieListWidget(item, showYear: true),
+                  skeleton: MovieListWidget.skeleton(),
                 ),
               ],
             );

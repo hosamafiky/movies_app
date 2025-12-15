@@ -49,7 +49,7 @@ class NowPlayingSection extends StatelessWidget {
                         ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
                       blendMode: BlendMode.dstIn,
-                      child: AppCachedNetworkImage(height: 560.0, imageUrl: item.fullBackdropPath!, fit: BoxFit.cover),
+                      child: AppCachedNetworkImage(height: 560.0, imageUrl: item.fullBackdropPath, fit: BoxFit.cover),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,

@@ -13,8 +13,16 @@
         "lib/firebase_options.dart": {
           "projectId": "learningcinemahub",
           "configurations": {
+            "android": "1:257562948724:android:5db3214660447c21240d21",
             "ios": "1:257562948724:ios:dad450e3055017b8240d21"
           }
+        }
+      },
+      "android": {
+        "default": {
+          "projectId": "learningcinemahub",
+          "appId": "1:257562948724:android:5db3214660447c21240d21",
+          "fileOutput": "android/app/google-services.json"
         }
       }
     }

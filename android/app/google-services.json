@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "257562948724",
+    "project_id": "learningcinemahub",
+    "storage_bucket": "learningcinemahub.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257562948724:android:5db3214660447c21240d21",
+        "android_client_info": {
+          "package_name": "com.learning.cinemahub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtL2DS8C2ugRkLQBqUGAx1RO7T6bIS_VQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

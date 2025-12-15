@@ -15,10 +15,14 @@ abstract class ColorPalette {
   Color get bottomNavigationBackground;
 
   /// Input Field Colors
-  Color get inputFieldFillColor;
-  Color get inputFieldHintTextColor;
+  Color get inputFieldFill;
+  Color get inputFieldHintText;
 
   /// Chip Colors
-  Color get chipBackgroundColor;
-  Color get chipLabelColor;
+  Color get chipBackground;
+  Color get chipLabel;
+
+  /// Shimmer Effect Colors
+  Color get shimmerBase;
+  Color get shimmerHighlight;
 }

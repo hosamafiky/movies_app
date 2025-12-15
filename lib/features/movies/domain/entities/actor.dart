@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class Actor extends Equatable {
   final bool adult;
@@ -36,6 +37,23 @@ class Actor extends Equatable {
     required this.creditId,
     required this.order,
   });
+
+  factory Actor.empty() {
+    return Actor(
+      adult: false,
+      gender: 0,
+      id: 0,
+      knownForDepartment: BoneMock.title,
+      name: BoneMock.name,
+      originalName: BoneMock.title,
+      popularity: 0.0,
+      profilePath: '',
+      castId: 0,
+      character: BoneMock.title,
+      creditId: '',
+      order: 0,
+    );
+  }
 
   @override
   List<Object?> get props => [adult, gender, id, knownForDepartment, name, originalName, popularity, profilePath, castId, character, creditId, order];

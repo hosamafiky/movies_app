@@ -16,7 +16,7 @@ ThemeData get lightThemeData {
     scaffoldBackgroundColor: colors.scaffoldBGColor,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: colors.inputFieldFillColor,
+      fillColor: colors.inputFieldFill,
       hintStyle: styles.inputFieldHintTextStyle,
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide.none),
     ),
@@ -29,7 +29,7 @@ ThemeData get lightThemeData {
       titleTextStyle: styles.appBarTitleStyle,
     ),
     chipTheme: ChipThemeData(
-      backgroundColor: colors.chipBackgroundColor,
+      backgroundColor: colors.chipBackground,
       labelStyle: styles.chipLabelStyle,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.5.h),
     ),

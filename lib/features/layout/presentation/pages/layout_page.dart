@@ -13,10 +13,7 @@ class LayoutPage extends StatelessWidget {
       create: (context) => LayoutCubit(),
       child: BlocBuilder<LayoutCubit, LayoutState>(
         builder: (context, state) {
-          return Scaffold(
-            body: IndexedStack(index: state.currentIndex, children: state.pages),
-            bottomNavigationBar: BottomNavigationBarWidget(),
-          );
+          return Scaffold(body: state.pages[state.currentIndex], bottomNavigationBar: BottomNavigationBarWidget());
         },
       ),
     );
