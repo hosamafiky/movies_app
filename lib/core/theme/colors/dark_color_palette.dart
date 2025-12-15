@@ -17,12 +17,17 @@ class DarkColorPalette implements ColorPalette {
   Color get bottomNavigationUnselected => Color(0xFF8FBDCC);
 
   @override
-  Color get inputFieldFillColor => Color(0xFF21404A);
+  Color get inputFieldFill => Color(0xFF21404A);
   @override
-  Color get inputFieldHintTextColor => Color(0xFF8FBDCC);
+  Color get inputFieldHintText => Color(0xFF8FBDCC);
 
   @override
-  Color get chipBackgroundColor => Color(0xFF21404A);
+  Color get chipBackground => Color(0xFF21404A);
   @override
-  Color get chipLabelColor => ColorPalette.whiteColor;
+  Color get chipLabel => ColorPalette.whiteColor;
+
+  @override
+  Color get shimmerBase => chipBackground;
+  @override
+  Color get shimmerHighlight => Color(0xFF2A5260);
 }

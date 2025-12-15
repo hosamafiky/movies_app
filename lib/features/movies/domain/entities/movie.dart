@@ -7,8 +7,8 @@ class Movie extends Equatable {
   final String title, backdropPath, posterPath, overview, releaseDate;
   final double voteAverage;
 
-  String? get fullBackdropPath => backdropPath.isEmpty ? null : 'https://image.tmdb.org/t/p/w500$backdropPath';
-  String? get fullPosterPath => posterPath.isEmpty ? null : 'https://image.tmdb.org/t/p/w500$posterPath';
+  String get fullBackdropPath => 'https://image.tmdb.org/t/p/w500$backdropPath';
+  String get fullPosterPath => 'https://image.tmdb.org/t/p/w500$posterPath';
 
   const Movie({
     required this.id,
@@ -22,7 +22,7 @@ class Movie extends Equatable {
   });
 
   factory Movie.empty() {
-    return Movie(id: 0, genreIds: [], title: BoneMock.title, voteAverage: 0.0, backdropPath: '', posterPath: '', overview: '', releaseDate: '');
+    return Movie(id: 0, genreIds: [], title: BoneMock.title, voteAverage: 0.0, backdropPath: '', posterPath: '', overview: '', releaseDate: '2000-01-01');
   }
 
   @override

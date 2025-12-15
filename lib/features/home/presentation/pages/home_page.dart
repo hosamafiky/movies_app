@@ -61,12 +61,14 @@ class _HomePageBodyState extends State<HomePageBody> {
               sectionTitle: 'Trending Movies',
               dataSelector: (state) => (status: state.status, error: state.error, items: state.movies),
               itemBuilder: (item) => MovieListWidget(item),
+              skeleton: MovieListWidget.skeleton(),
             ),
 
             HorizontalListView<TVShowCubit, TVShowState, TVShow>(
               sectionTitle: 'Trending TV Shows',
               dataSelector: (state) => (status: state.trendingStatus, error: state.trendingError, items: state.trendingTVShows),
               itemBuilder: (item) => TVShowListWidget(item),
+              skeleton: TVShowListWidget.skeleton(),
             ),
           ],
         ),

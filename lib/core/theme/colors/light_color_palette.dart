@@ -17,12 +17,17 @@ class LightColorPalette implements ColorPalette {
   Color get bottomNavigationUnselected => Color(0xFF4A879C);
 
   @override
-  Color get inputFieldFillColor => Color(0xFFE8F0F5);
+  Color get inputFieldFill => Color(0xFFE8F0F5);
   @override
-  Color get inputFieldHintTextColor => Color(0xFF4A879C);
+  Color get inputFieldHintText => Color(0xFF4A879C);
 
   @override
-  Color get chipBackgroundColor => Color(0xFFE8F0F5);
+  Color get chipBackground => Color(0xFFE8F0F5);
   @override
-  Color get chipLabelColor => Color(0xFF0D171C);
+  Color get chipLabel => Color(0xFF0D171C);
+
+  @override
+  Color get shimmerBase => Colors.grey.shade300;
+  @override
+  Color get shimmerHighlight => Colors.grey.shade100;
 }

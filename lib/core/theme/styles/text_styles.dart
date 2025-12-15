@@ -19,7 +19,7 @@ class TextStyles {
 
   /// BODY TEXT
   TextStyle get body1Style => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.regular, height: 20 / 14, color: palette.bottomNavigationUnselected);
-  TextStyle get body2Style => TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 24 / 16, color: palette.chipLabelColor);
+  TextStyle get body2Style => TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 24 / 16, color: palette.chipLabel);
 
   /// BOTTOM NAVIGATION BAR
   TextStyle get bottomNavigationSelectedLabelStyle =>
@@ -28,9 +28,8 @@ class TextStyles {
       TextStyle(color: palette.bottomNavigationUnselected, fontSize: 12.sp, fontWeight: AppFontWeight.medium, height: 18 / 12);
 
   /// INPUT FIELDS
-  TextStyle get inputFieldHintTextStyle =>
-      TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 18 / 16, color: palette.inputFieldHintTextColor);
+  TextStyle get inputFieldHintTextStyle => TextStyle(fontSize: 16.sp, fontWeight: AppFontWeight.regular, height: 18 / 16, color: palette.inputFieldHintText);
 
   /// CHIPS
-  TextStyle get chipLabelStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.medium, height: 20 / 14, color: palette.chipLabelColor);
+  TextStyle get chipLabelStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.medium, height: 20 / 14, color: palette.chipLabel);
 }

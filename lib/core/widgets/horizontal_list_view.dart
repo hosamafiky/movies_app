@@ -13,14 +13,18 @@ class HorizontalListView<B extends StateStreamableSource<S>, S, T> extends State
     required this.dataSelector,
     required this.sectionTitle,
     required this.itemBuilder,
-    this.listHeight,
-    this.listSeparation,
+    required this.skeleton,
+    this.height,
+    this.itemSpacing,
+    this.skeletonItemCount = 5,
   });
 
   final String sectionTitle;
-  final double? listHeight, listSeparation;
+  final double? height, itemSpacing;
+  final int skeletonItemCount;
   final ({UsecaseStatus status, ErrorResponse? error, List<T> items}) Function(S) dataSelector;
   final Widget Function(T item) itemBuilder;
+  final Widget skeleton;
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +44,19 @@ class HorizontalListView<B extends StateStreamableSource<S>, S, T> extends State
               FadeIn(
                 duration: const Duration(milliseconds: 500),
                 child: SizedBox(
-                  height: listHeight ?? 300.h,
+                  height: height ?? 300.h,
                   child: switch (data.status) {
-                    UsecaseStatus.initial => const Center(child: CircularProgressIndicator.adaptive()),
-                    UsecaseStatus.loading => const Center(child: CircularProgressIndicator.adaptive()),
                     UsecaseStatus.failure => Center(child: Text('Error: ${data.error?.message ?? "Unknown error"}')),
-                    UsecaseStatus.success => ListView.separated(
+                    _ => ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                      itemCount: data.items.length,
-                      separatorBuilder: (context, index) => SizedBox(width: listSeparation ?? 12.w),
-                      itemBuilder: (context, index) => itemBuilder(data.items[index]),
+                      itemCount: data.status != UsecaseStatus.success ? skeletonItemCount : data.items.length,
+                      separatorBuilder: (context, index) => SizedBox(width: itemSpacing ?? 12.w),
+                      itemBuilder: (context, index) {
+                        if (data.status != UsecaseStatus.success) return skeleton;
+                        final item = data.items[index];
+                        return itemBuilder(item);
+                      },
                     ),
                   },
                 ),
