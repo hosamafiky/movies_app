@@ -17,7 +17,6 @@ class FilteredMoviesCubit extends Cubit<FilteredMoviesState> {
   Future<void> fetchFilteredMovies(GetMoviesFilters filters) async {
     emit(state.copyWith(status: UsecaseStatus.loading));
     final result = await getMoviesUsecase(ApiConstants.endPoints.DISCOVER_MOVIES, filters: filters);
-    await Future.delayed(const Duration(seconds: 10));
     result.fold(
       (failure) => emit(state.copyWith(status: UsecaseStatus.failure, error: failure.response)),
       (movies) => emit(state.copyWith(status: UsecaseStatus.success, movies: movies)),
