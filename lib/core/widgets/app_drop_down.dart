@@ -6,12 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppDropdown<T> extends StatelessWidget {
   const AppDropdown({
-    super.key,
-    this.suffixIconColor,
-    this.validator,
     required this.onChanged,
     required this.items,
     required this.itemMapper,
+    super.key,
+    this.suffixIconColor,
+    this.validator,
     this.label,
     this.style,
     this.value,

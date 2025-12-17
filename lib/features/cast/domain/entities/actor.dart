@@ -1,3 +1,4 @@
+import 'package:cinemahub/core/networking/api_constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -15,13 +16,7 @@ class Actor extends Equatable {
   final String creditId;
   final int order;
 
-  String get fullProfilePath {
-    if (profilePath.startsWith('http')) {
-      return profilePath;
-    } else {
-      return 'https://image.tmdb.org/t/p/w500$profilePath';
-    }
-  }
+  String get fullProfilePath => ApiConstants.fullImage(profilePath);
 
   const Actor({
     required this.adult,

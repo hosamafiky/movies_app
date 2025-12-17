@@ -1,30 +1,28 @@
+import 'package:cinemahub/core/networking/api_constants.dart';
 import 'package:equatable/equatable.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class Movie extends Equatable {
   final int id;
   final List<int> genreIds;
   final String title, backdropPath, posterPath, overview, releaseDate;
   final double voteAverage;
+  final int voteCount;
 
-  String get fullBackdropPath => 'https://image.tmdb.org/t/p/w500$backdropPath';
-  String get fullPosterPath => 'https://image.tmdb.org/t/p/w500$posterPath';
+  String get fullBackdropPath => ApiConstants.fullImage(backdropPath);
+  String get fullPosterPath => ApiConstants.fullImage(posterPath);
 
   const Movie({
-    required this.id,
-    required this.genreIds,
-    required this.title,
-    required this.voteAverage,
-    required this.backdropPath,
-    required this.posterPath,
-    required this.overview,
-    required this.releaseDate,
+    this.id = 0,
+    this.genreIds = const [],
+    this.title = 'CCCCCCCCC',
+    this.voteAverage = 0.0,
+    this.voteCount = 0,
+    this.backdropPath = '',
+    this.posterPath = '',
+    this.overview = '',
+    this.releaseDate = '2000-01-01',
   });
 
-  factory Movie.empty() {
-    return Movie(id: 0, genreIds: [], title: BoneMock.title, voteAverage: 0.0, backdropPath: '', posterPath: '', overview: '', releaseDate: '2000-01-01');
-  }
-
   @override
-  List<Object?> get props => [id, genreIds, title, voteAverage, backdropPath, posterPath, overview, releaseDate];
+  List<Object?> get props => [id, genreIds, title, voteAverage, backdropPath, posterPath, overview, releaseDate, voteCount];
 }

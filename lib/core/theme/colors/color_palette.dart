@@ -25,4 +25,8 @@ abstract class ColorPalette {
   /// Shimmer Effect Colors
   Color get shimmerBase;
   Color get shimmerHighlight;
+
+  /// Progress Indicator Colors
+  Color get progressIndicator;
+  Color get progressIndicatorBG;
 }

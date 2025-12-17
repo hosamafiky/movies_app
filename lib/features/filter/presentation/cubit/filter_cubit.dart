@@ -11,7 +11,7 @@ import '../../domain/usecases/get_genres_usecase.dart';
 part 'filter_state.dart';
 
 class FilterCubit extends Cubit<FilterState> {
-  FilterCubit({required this.getGenresUsecase}) : super(FilterState());
+  FilterCubit({required this.getGenresUsecase}) : super(const FilterState());
 
   final GetGenresUsecase getGenresUsecase;
 

@@ -31,7 +31,7 @@ class MainApp extends StatelessWidget {
                 theme: AppTheme.lightTheme,
                 darkTheme: AppTheme.darkTheme,
                 themeMode: mode,
-                home: LayoutPage(),
+                home: const LayoutPage(),
               );
             },
           );

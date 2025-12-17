@@ -44,6 +44,12 @@ ThemeData get darkThemeData {
       labelStyle: styles.chipLabelStyle,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.5.h),
     ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: colors.progressIndicator,
+      linearTrackColor: colors.progressIndicatorBG,
+      circularTrackColor: colors.progressIndicatorBG,
+      borderRadius: BorderRadius.circular(50),
+    ),
     // Add other theme properties as needed
   );
 }

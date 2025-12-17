@@ -1,75 +1,59 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cinemahub/core/base/base_cubit.dart';
+import 'package:cinemahub/features/movies/domain/entities/movie.dart';
+import 'package:cinemahub/features/movies/domain/entities/trailer.dart';
 
+import '../../../../core/enums/media_type.dart';
 import '../../../../core/enums/usecase_status.dart';
 import '../../../../core/networking/api_constants.dart';
-import '../../../../core/networking/interface/error_response.dart';
-import '../../domain/entities/actor.dart';
-import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_details.dart';
-import '../../domain/entities/trailer.dart';
-import '../../domain/usecases/get_movie_cast_usecase.dart';
 import '../../domain/usecases/get_movie_details_usecase.dart';
 import '../../domain/usecases/get_movie_trailers_usecase.dart';
 import '../../domain/usecases/get_movies_usecase.dart';
+import 'movie_details_state.dart';
 
-part 'movie_details_state.dart';
-
-class MovieDetailsCubit extends Cubit<MovieDetailsState> {
-  MovieDetailsCubit({
-    required this.getMovieDetailsUsecase,
-    required this.getMovieCastUsecase,
-    required this.getMovieTrailersUsecase,
-    required this.getMoviesUsecase,
-  }) : super(const MovieDetailsState());
+class MovieDetailsCubit extends BaseCubit<MovieDetailsState> {
+  MovieDetailsCubit({required this.getMovieDetailsUsecase, required this.getMovieTrailersUsecase, required this.getMoviesUsecase})
+    : super(const MovieDetailsState());
 
   final GetMovieDetailsUsecase getMovieDetailsUsecase;
-  final GetMovieCastUsecase getMovieCastUsecase;
   final GetMovieTrailersUsecase getMovieTrailersUsecase;
   final GetMoviesUsecase getMoviesUsecase;
 
   Future<void> fetchMovieDetails(int id) async {
-    emit(state.copyWith(movieDetailsStatus: UsecaseStatus.loading));
-    final result = await getMovieDetailsUsecase(id);
-    result.fold(
-      (failure) => emit(state.copyWith(movieDetailsStatus: UsecaseStatus.failure, movieDetailsError: failure.response)),
-      (movieDetails) => emit(state.copyWith(movieDetailsStatus: UsecaseStatus.success, movieDetails: movieDetails)),
-    );
-  }
-
-  Future<void> fetchMovieCast(int id) async {
-    emit(state.copyWith(castStatus: UsecaseStatus.loading));
-    final result = await getMovieCastUsecase(id);
-    result.fold(
-      (failure) => emit(state.copyWith(castStatus: UsecaseStatus.failure, castError: failure.response)),
-      (cast) => emit(state.copyWith(castStatus: UsecaseStatus.success, cast: cast)),
+    return await execute<MovieDetails>(
+      action: () => getMovieDetailsUsecase(id),
+      onLoading: () => state.copyWith(movieDetailsStatus: UsecaseStatus.loading),
+      onSuccess: (movieDetails) => state.copyWith(movieDetails: movieDetails, movieDetailsStatus: UsecaseStatus.success),
+      onFailure: (error) => state.copyWith(movieDetailsError: error, movieDetailsStatus: UsecaseStatus.failure),
     );
   }
 
   Future<void> fetchMovieTrailers(int id) async {
-    emit(state.copyWith(trailersStatus: UsecaseStatus.loading));
-    final result = await getMovieTrailersUsecase(id);
-    result.fold(
-      (failure) => emit(state.copyWith(trailersStatus: UsecaseStatus.failure, trailersError: failure.response)),
-      (trailers) => emit(state.copyWith(trailersStatus: UsecaseStatus.success, trailers: trailers)),
+    return await execute<List<Trailer>>(
+      action: () => getMovieTrailersUsecase(id),
+      onLoading: () => state.copyWith(trailersStatus: UsecaseStatus.loading),
+      onSuccess: (trailers) => state.copyWith(trailers: trailers, trailersStatus: UsecaseStatus.success),
+      onFailure: (error) => state.copyWith(trailersError: error, trailersStatus: UsecaseStatus.failure),
     );
   }
 
   Future<void> fetchSimilarMovies(int id) async {
-    emit(state.copyWith(similarStatus: UsecaseStatus.loading));
-    final result = await getMoviesUsecase(ApiConstants.endPoints.SIMILAR_MOVIES(id));
-    result.fold(
-      (failure) => emit(state.copyWith(similarStatus: UsecaseStatus.failure, similarError: failure.response)),
-      (movies) => emit(state.copyWith(similarStatus: UsecaseStatus.success, similarMovies: movies)),
+    final params = GetMoviesParams(path: ApiConstants.endPoints.SIMILAR(MediaType.movie, id));
+    return await execute<List<Movie>>(
+      action: () => getMoviesUsecase(params),
+      onLoading: () => state.copyWith(similarStatus: UsecaseStatus.loading),
+      onSuccess: (movies) => state.copyWith(similarMovies: movies, similarStatus: UsecaseStatus.success),
+      onFailure: (error) => state.copyWith(similarError: error, similarStatus: UsecaseStatus.failure),
     );
   }
 
   Future<void> fetchMovieRecommendations(int id) async {
-    emit(state.copyWith(recommendationsStatus: UsecaseStatus.loading));
-    final result = await getMoviesUsecase(ApiConstants.endPoints.RECOMMENDATIONS(id));
-    result.fold(
-      (failure) => emit(state.copyWith(recommendationsStatus: UsecaseStatus.failure, recommendationsError: failure.response)),
-      (movies) => emit(state.copyWith(recommendationsStatus: UsecaseStatus.success, recommendationsMovies: movies)),
+    final params = GetMoviesParams(path: ApiConstants.endPoints.RECOMMENDATIONS(MediaType.movie, id));
+    return await execute<List<Movie>>(
+      action: () => getMoviesUsecase(params),
+      onLoading: () => state.copyWith(recommendationsStatus: UsecaseStatus.loading),
+      onSuccess: (movies) => state.copyWith(recommendationsMovies: movies, recommendationsStatus: UsecaseStatus.success),
+      onFailure: (error) => state.copyWith(recommendationsError: error, recommendationsStatus: UsecaseStatus.failure),
     );
   }
 }

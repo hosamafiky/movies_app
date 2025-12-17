@@ -16,6 +16,12 @@ class Assets {
 
   static const String assetsIconsSvgSearchFilled = "assets/icons/svg/search_filled.svg";
 
+  static const String assetsIconsSvgStarFilled = "assets/icons/svg/star_filled.svg";
+
+  static const String assetsIconsSvgStarHalf = "assets/icons/svg/star_half.svg";
+
+  static const String assetsIconsSvgStarOutlined = "assets/icons/svg/star_outlined.svg";
+
   static const String assetsIconsSvgSun = "assets/icons/svg/sun.svg";
 
   static const String assetsIconsSvgTvShows = "assets/icons/svg/tv_shows.svg";

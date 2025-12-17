@@ -1,16 +1,14 @@
-part of 'popular_movies_cubit.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class PopularMoviesState extends Equatable {
-  const PopularMoviesState({this.status = UsecaseStatus.initial, this.error, this.movies = const []});
+import '../../../../core/networking/interface/error_response.dart';
+import '../../domain/entities/movie.dart';
 
-  final UsecaseStatus status;
-  final ErrorResponse? error;
-  final List<Movie> movies;
+part 'popular_movies_state.freezed.dart';
 
-  PopularMoviesState copyWith({UsecaseStatus? status, ErrorResponse? error, List<Movie>? movies}) {
-    return PopularMoviesState(status: status ?? this.status, error: error ?? this.error, movies: movies ?? this.movies);
-  }
-
-  @override
-  List<Object?> get props => [status, error, movies];
+@freezed
+class PopularMoviesState with _$PopularMoviesState {
+  const factory PopularMoviesState.initial() = _Initial;
+  const factory PopularMoviesState.loading() = _Loading;
+  const factory PopularMoviesState.success(List<Movie> movies) = _Success;
+  const factory PopularMoviesState.error(ErrorResponse error) = _Error;
 }

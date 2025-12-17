@@ -11,7 +11,7 @@ import '../../../watchlist/presentation/pages/watchlist_page.dart';
 part 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit() : super(LayoutState());
+  LayoutCubit() : super(const LayoutState());
 
   void changeIndex(int index) => emit(state.copyWith(currentIndex: index));
 }

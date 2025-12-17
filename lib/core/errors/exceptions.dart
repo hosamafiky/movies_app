@@ -43,11 +43,11 @@ class ConflictException extends AppException {
 }
 
 class InternalServerErrorException extends AppException {
-  InternalServerErrorException() : super(SimpleErrorResponse(code: 500, message: "Internal Server Error"));
+  const InternalServerErrorException() : super(const SimpleErrorResponse(code: 500, message: "Internal Server Error"));
 }
 
 class NoInternetConnectionException extends AppException {
-  NoInternetConnectionException() : super(SimpleErrorResponse(code: 0, message: "No Internet Connection"));
+  const NoInternetConnectionException() : super(const SimpleErrorResponse(code: 0, message: "No Internet Connection"));
 }
 
 class CacheException extends AppException {

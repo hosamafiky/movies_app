@@ -17,7 +17,7 @@ class SortByIconButton extends StatelessWidget {
       builder: (context, sortBy) {
         return PopupMenuButton(
           initialValue: sortBy,
-          icon: Icon(Icons.sort_outlined),
+          icon: const Icon(Icons.sort_outlined),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radius.r)),
           offset: Offset(0, 50.h),
           constraints: BoxConstraints(maxHeight: 200.h),

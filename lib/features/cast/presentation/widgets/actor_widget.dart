@@ -1,7 +1,7 @@
 import 'package:cinemahub/core/extensions/context.dart';
 import 'package:cinemahub/core/widgets/app_cached_network_image.dart';
 import 'package:cinemahub/core/widgets/skeleton_wrapper.dart';
-import 'package:cinemahub/features/movies/domain/entities/actor.dart';
+import 'package:cinemahub/features/cast/domain/entities/actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

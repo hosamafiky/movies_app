@@ -1,16 +1,14 @@
-part of 'filtered_movies_cubit.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class FilteredMoviesState extends Equatable {
-  const FilteredMoviesState({this.status = UsecaseStatus.initial, this.error, this.movies = const []});
+import '../../../../core/networking/interface/error_response.dart';
+import '../../domain/entities/movie.dart';
 
-  final UsecaseStatus status;
-  final ErrorResponse? error;
-  final List<Movie> movies;
+part 'filtered_movies_state.freezed.dart';
 
-  FilteredMoviesState copyWith({UsecaseStatus? status, ErrorResponse? error, List<Movie>? movies}) {
-    return FilteredMoviesState(status: status ?? this.status, error: error ?? this.error, movies: movies ?? this.movies);
-  }
-
-  @override
-  List<Object?> get props => [status, error, movies];
+@freezed
+class FilteredMoviesState with _$FilteredMoviesState {
+  const factory FilteredMoviesState.initial() = _Initial;
+  const factory FilteredMoviesState.loading() = _Loading;
+  const factory FilteredMoviesState.success(List<Movie> movies) = _Success;
+  const factory FilteredMoviesState.error(ErrorResponse error) = _Error;
 }

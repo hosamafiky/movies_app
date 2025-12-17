@@ -7,18 +7,18 @@ import '../enums/usecase_status.dart';
 import '../networking/interface/error_response.dart';
 
 class CustomGridView<B extends StateStreamableSource<S>, S, T> extends StatelessWidget {
-  const CustomGridView({super.key, required this.dataSelector, required this.itemBuilder, required this.skeleton, this.skeletonItemCount = 6});
+  const CustomGridView({required this.mapState, required this.itemBuilder, required this.skeleton, super.key, this.skeletonItemCount = 6});
 
-  final ({UsecaseStatus status, ErrorResponse? error, List<T> items}) Function(S) dataSelector;
+  final ({UsecaseStatus status, ErrorResponse? error, List<T> items}) Function(S state) mapState;
   final Widget Function(T item) itemBuilder;
   final Widget skeleton;
   final int skeletonItemCount;
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<B, S, ({UsecaseStatus status, ErrorResponse? error, List<T> items})>(
-      selector: dataSelector,
-      builder: (context, data) {
+    return BlocBuilder<B, S>(
+      builder: (context, state) {
+        final data = mapState(state);
         return FadeIn(
           duration: const Duration(milliseconds: 500),
           child: switch (data.status) {

@@ -1,3 +1,4 @@
+import 'package:cinemahub/core/base/base_usecase.dart';
 import 'package:cinemahub/core/enums/sort_by.dart';
 import 'package:cinemahub/features/filter/domain/entities/genre.dart';
 import 'package:dartz/dartz.dart';
@@ -7,14 +8,25 @@ import '../../../../core/errors/failures.dart';
 import '../entities/movie.dart';
 import '../repository/movie_repository.dart';
 
-class GetMoviesUsecase {
+class GetMoviesUsecase extends BaseUsecase<List<Movie>, GetMoviesParams> {
   final MovieRepository repository;
 
-  const GetMoviesUsecase({required this.repository});
+  GetMoviesUsecase({required this.repository});
 
-  Future<Either<Failure, List<Movie>>> call(String path, {GetMoviesFilters? filters}) async {
-    return await repository.getMovies(path, queryParameters: filters?.toMap());
+  @override
+  Future<Either<Failure, List<Movie>>> call(GetMoviesParams params) async {
+    return await repository.getMovies(params.path, queryParameters: params.filters?.toMap());
   }
+}
+
+class GetMoviesParams extends Equatable {
+  final String path;
+  final GetMoviesFilters? filters;
+
+  const GetMoviesParams({required this.path, this.filters});
+
+  @override
+  List<Object?> get props => [path, filters];
 }
 
 class GetMoviesFilters extends Equatable {

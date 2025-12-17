@@ -1,6 +1,8 @@
 import 'package:cinemahub/core/dependency_injection/di.dart';
+import 'package:cinemahub/core/enums/usecase_status.dart';
 import 'package:cinemahub/features/home/presentation/cubit/home_cubit.dart';
 import 'package:cinemahub/features/movies/presentation/logic/trending_movies_cubit.dart';
+import 'package:cinemahub/features/movies/presentation/logic/trending_movies_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +12,8 @@ import '../../../movies/domain/entities/movie.dart';
 import '../../../movies/presentation/widgets/movie_list_widget.dart';
 import '../../../theme/presentation/widgets/theme_icon_button.dart';
 import '../../../tv_show/domain/entities/tv_show.dart';
-import '../../../tv_show/presentation/cubit/tv_show_cubit.dart';
+import '../../../tv_show/presentation/cubit/trending_tv_shows_cubit.dart';
+import '../../../tv_show/presentation/cubit/trending_tv_shows_state.dart';
 import '../../../tv_show/presentation/widgets/tv_show_list_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,9 +25,9 @@ class HomePage extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => HomeCubit()),
         BlocProvider(create: (context) => DependencyInjector.instance.sl<TrendingMoviesCubit>()),
-        BlocProvider(create: (context) => DependencyInjector.instance.sl<TVShowCubit>()),
+        BlocProvider(create: (context) => DependencyInjector.instance.sl<TrendingTVShowsCubit>()),
       ],
-      child: HomePageBody(),
+      child: const HomePageBody(),
     );
   }
 }
@@ -39,7 +42,7 @@ class HomePageBody extends StatefulWidget {
 class _HomePageBodyState extends State<HomePageBody> {
   void _loadData() {
     context.read<TrendingMoviesCubit>().fetchTrendingMovies();
-    context.read<TVShowCubit>().fetchTrendingTVShows();
+    context.read<TrendingTVShowsCubit>().fetchTrendingTVShows();
   }
 
   @override
@@ -51,7 +54,7 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('CinemaHub'), actions: [ThemeIconButton()]),
+      appBar: AppBar(title: const Text('CinemaHub'), actions: [const ThemeIconButton()]),
       body: SingleChildScrollView(
         key: const Key('homeScrollView'),
         padding: EdgeInsets.only(bottom: 50.h),
@@ -59,14 +62,24 @@ class _HomePageBodyState extends State<HomePageBody> {
           children: [
             HorizontalListView<TrendingMoviesCubit, TrendingMoviesState, Movie>(
               sectionTitle: 'Trending Movies',
-              dataSelector: (state) => (status: state.status, error: state.error, items: state.movies),
+              mapState: (state) => state.when(
+                initial: () => (status: UsecaseStatus.initial, error: null, items: const []),
+                loading: () => (status: UsecaseStatus.loading, error: null, items: const []),
+                success: (movies) => (status: UsecaseStatus.success, error: null, items: movies),
+                error: (error) => (status: UsecaseStatus.failure, error: error, items: const []),
+              ),
               itemBuilder: (item) => MovieListWidget(item),
-              skeleton: MovieListWidget.skeleton(),
+              skeleton: const MovieListWidget.skeleton(),
             ),
 
-            HorizontalListView<TVShowCubit, TVShowState, TVShow>(
+            HorizontalListView<TrendingTVShowsCubit, TrendingTVShowsState, TVShow>(
               sectionTitle: 'Trending TV Shows',
-              dataSelector: (state) => (status: state.trendingStatus, error: state.trendingError, items: state.trendingTVShows),
+              mapState: (state) => state.when(
+                initial: () => (status: UsecaseStatus.initial, error: null, items: const []),
+                loading: () => (status: UsecaseStatus.loading, error: null, items: const []),
+                success: (tvShows) => (status: UsecaseStatus.success, error: null, items: tvShows),
+                error: (error) => (status: UsecaseStatus.failure, error: error, items: const []),
+              ),
               itemBuilder: (item) => TVShowListWidget(item),
               skeleton: TVShowListWidget.skeleton(),
             ),

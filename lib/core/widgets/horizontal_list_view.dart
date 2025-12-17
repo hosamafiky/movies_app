@@ -9,11 +9,11 @@ import '../networking/interface/error_response.dart';
 
 class HorizontalListView<B extends StateStreamableSource<S>, S, T> extends StatelessWidget {
   const HorizontalListView({
-    super.key,
-    required this.dataSelector,
     required this.sectionTitle,
     required this.itemBuilder,
     required this.skeleton,
+    required this.mapState,
+    super.key,
     this.height,
     this.itemSpacing,
     this.skeletonItemCount = 5,
@@ -22,16 +22,16 @@ class HorizontalListView<B extends StateStreamableSource<S>, S, T> extends State
   final String sectionTitle;
   final double? height, itemSpacing;
   final int skeletonItemCount;
-  final ({UsecaseStatus status, ErrorResponse? error, List<T> items}) Function(S) dataSelector;
   final Widget Function(T item) itemBuilder;
   final Widget skeleton;
+  final ({UsecaseStatus status, ErrorResponse? error, List<T> items}) Function(S state) mapState;
 
   @override
   Widget build(BuildContext context) {
     final styles = context.watchTextStyles;
-    return BlocSelector<B, S, ({UsecaseStatus status, ErrorResponse? error, List<T> items})>(
-      selector: dataSelector,
-      builder: (context, data) {
+    return BlocBuilder<B, S>(
+      builder: (context, state) {
+        final data = mapState(state);
         return Offstage(
           offstage: data.items.isEmpty && data.status == UsecaseStatus.success,
           child: Column(

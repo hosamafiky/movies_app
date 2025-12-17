@@ -42,6 +42,12 @@ ThemeData get lightThemeData {
       selectedLabelStyle: styles.bottomNavigationSelectedLabelStyle,
       unselectedLabelStyle: styles.bottomNavigationUnselectedLabelStyle,
     ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: colors.progressIndicator,
+      linearTrackColor: colors.progressIndicatorBG,
+      circularTrackColor: colors.progressIndicatorBG,
+      borderRadius: BorderRadius.circular(50),
+    ),
     // Add other theme properties as needed
   );
 }

@@ -10,7 +10,7 @@ import '../pages/movie_details_screen.dart';
 class MovieGridWidget extends StatelessWidget {
   const MovieGridWidget(this.movie, {super.key}) : _isSkeleton = false;
 
-  MovieGridWidget.skeleton({super.key}) : movie = Movie.empty(), _isSkeleton = true;
+  const MovieGridWidget.skeleton({super.key}) : movie = const Movie(), _isSkeleton = true;
 
   final Movie movie;
 

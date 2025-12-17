@@ -13,7 +13,7 @@ extension OnApiRequest on ApiRequest {
         if (value is List<File> || value is File) {
           isFormData = true;
           switch (value) {
-            case File file:
+            case final File file:
               body![key] = await file.toMultiPart();
             default:
               body![key] = await (value as List<File>).toMultiPart();

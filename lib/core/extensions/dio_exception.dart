@@ -12,11 +12,11 @@ extension DioExceptionX on DioException {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        return NoInternetConnectionException();
+        return const NoInternetConnectionException();
       case DioExceptionType.cancel:
         return CancelException(SimpleErrorResponse.fromMap(data).copyWith(code: response?.statusCode));
       case DioExceptionType.unknown:
-        return UnknownException(SimpleErrorResponse(code: 0, message: "Something went wrong"));
+        return const UnknownException(SimpleErrorResponse(code: 0, message: "Something went wrong"));
       case DioExceptionType.badResponse:
         switch (response!.statusCode) {
           case HttpStatus.badRequest:
@@ -31,7 +31,7 @@ extension DioExceptionX on DioException {
           case HttpStatus.conflict:
             return ConflictException(SimpleErrorResponse.fromMap(data).copyWith(code: HttpStatus.conflict));
           case HttpStatus.internalServerError:
-            return InternalServerErrorException();
+            return const InternalServerErrorException();
           default:
             return UnknownException(SimpleErrorResponse(code: 0, message: "Something went wrong : ${data?['message']}"));
         }

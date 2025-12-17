@@ -4,6 +4,7 @@ import 'package:cinemahub/core/networking/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../features/cast/di/setup_cast_dependencies.dart';
 import '../../features/filter/di/setup_filter_dependencies.dart';
 import '../../features/movies/di/setup_movies_dependencies.dart';
 import '../../features/tv_show/di/setup_tv_shows_dependencies.dart';
@@ -21,6 +22,7 @@ class DependencyInjector {
     setUpGeneralDependencies(apiKey);
     setUpMoviesDependencies();
     setUpTVShowsDependencies();
+    setUpCastDependencies();
     setUpGenreDependencies();
   }
 

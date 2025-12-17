@@ -29,6 +29,22 @@ class MovieHeader extends StatelessWidget {
               child: AppCachedNetworkImage(imageUrl: movie.fullPosterPath, width: 160.w, fit: BoxFit.cover),
             ),
           ),
+          Positioned(
+            bottom: 0.h,
+            left: 0.w,
+            right: 0.w,
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(color: Colors.black45, borderRadius: BorderRadius.circular(8.r)),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              child: Text(
+                movie.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
         ],
       ),
     );

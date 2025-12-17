@@ -4,7 +4,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../extensions/context.dart';
 
 class SkeletonWrapper extends StatelessWidget {
-  const SkeletonWrapper({super.key, required this.child, required this.enabled});
+  const SkeletonWrapper({required this.child, required this.enabled, super.key});
 
   final Widget child;
   final bool enabled;

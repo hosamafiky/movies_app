@@ -5,11 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../errors/exceptions.dart';
 import '../../extensions/dio_exception.dart';
 import '../api_request.dart';
 import '../extensions/on_api_request.dart';
-import '../interface/error_response.dart';
 
 class DioService implements ApiService {
   final Dio _dio;
@@ -38,8 +36,9 @@ class DioService implements ApiService {
       return response.data as T;
     } on DioException catch (e) {
       throw e.exceptionToThrow;
-    } catch (e) {
-      throw UnknownException(SimpleErrorResponse(code: 0, message: e.toString()));
     }
+    // catch (e) {
+    //   throw UnknownException(SimpleErrorResponse(code: 0, message: e.toString()));
+    // }
   }
 }

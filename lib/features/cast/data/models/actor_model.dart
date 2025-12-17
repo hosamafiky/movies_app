@@ -1,4 +1,4 @@
-import 'package:cinemahub/features/movies/domain/entities/actor.dart';
+import 'package:cinemahub/features/cast/domain/entities/actor.dart';
 
 class ActorModel extends Actor {
   const ActorModel({

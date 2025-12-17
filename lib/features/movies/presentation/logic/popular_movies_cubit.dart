@@ -1,25 +1,23 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cinemahub/core/base/base_cubit.dart';
+import 'package:cinemahub/core/enums/media_type.dart';
+import 'package:cinemahub/features/movies/presentation/logic/popular_movies_state.dart';
 
-import '../../../../core/enums/usecase_status.dart';
 import '../../../../core/networking/api_constants.dart';
-import '../../../../core/networking/interface/error_response.dart';
 import '../../domain/entities/movie.dart';
 import '../../domain/usecases/get_movies_usecase.dart';
 
-part 'popular_movies_state.dart';
-
-class PopularMoviesCubit extends Cubit<PopularMoviesState> {
-  PopularMoviesCubit({required this.getMoviesUsecase}) : super(const PopularMoviesState());
+class PopularMoviesCubit extends BaseCubit<PopularMoviesState> {
+  PopularMoviesCubit({required this.getMoviesUsecase}) : super(const PopularMoviesState.initial());
 
   final GetMoviesUsecase getMoviesUsecase;
 
   Future<void> fetchPopularMovies() async {
-    emit(state.copyWith(status: UsecaseStatus.loading));
-    final result = await getMoviesUsecase(ApiConstants.endPoints.POPULAR_MOVIES);
-    result.fold(
-      (failure) => emit(state.copyWith(status: UsecaseStatus.failure, error: failure.response)),
-      (movies) => emit(state.copyWith(status: UsecaseStatus.success, movies: movies)),
+    final params = GetMoviesParams(path: ApiConstants.endPoints.POPULAR(MediaType.movie));
+    await execute<List<Movie>>(
+      action: () => getMoviesUsecase(params),
+      onLoading: () => const PopularMoviesState.loading(),
+      onSuccess: (movies) => PopularMoviesState.success(movies),
+      onFailure: (error) => PopularMoviesState.error(error),
     );
   }
 }

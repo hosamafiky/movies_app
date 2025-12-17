@@ -11,7 +11,7 @@ import '../../domain/entities/movie.dart';
 class MovieListWidget extends StatelessWidget {
   const MovieListWidget(this.movie, {super.key, this.showYear = false}) : _isSkeleton = false;
 
-  MovieListWidget.skeleton({super.key}) : movie = Movie.empty(), showYear = false, _isSkeleton = true;
+  const MovieListWidget.skeleton({super.key}) : movie = const Movie(), showYear = false, _isSkeleton = true;
 
   final Movie movie;
   final bool showYear;

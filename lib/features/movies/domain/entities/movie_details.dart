@@ -10,6 +10,7 @@ class MovieDetails extends Movie {
     required super.genreIds,
     required super.title,
     required super.voteAverage,
+    required super.voteCount,
     required super.backdropPath,
     required super.posterPath,
     required super.overview,

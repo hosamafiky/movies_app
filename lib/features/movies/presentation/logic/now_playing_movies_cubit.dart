@@ -1,25 +1,22 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cinemahub/core/base/base_cubit.dart';
+import 'package:cinemahub/core/enums/media_type.dart';
 
-import '../../../../core/enums/usecase_status.dart';
 import '../../../../core/networking/api_constants.dart';
-import '../../../../core/networking/interface/error_response.dart';
-import '../../domain/entities/movie.dart';
 import '../../domain/usecases/get_movies_usecase.dart';
+import 'now_playing_movies_state.dart';
 
-part 'now_playing_movies_state.dart';
-
-class NowPlayingMoviesCubit extends Cubit<NowPlayingMoviesState> {
-  NowPlayingMoviesCubit({required this.getMoviesUsecase}) : super(const NowPlayingMoviesState());
+class NowPlayingMoviesCubit extends BaseCubit<NowPlayingMoviesState> {
+  NowPlayingMoviesCubit({required this.getMoviesUsecase}) : super(const NowPlayingMoviesState.initial());
 
   final GetMoviesUsecase getMoviesUsecase;
 
   Future<void> fetchNowPlayingMovies() async {
-    emit(state.copyWith(status: UsecaseStatus.loading));
-    final result = await getMoviesUsecase(ApiConstants.endPoints.NOW_PLAYING_MOVIES);
-    result.fold(
-      (failure) => emit(state.copyWith(status: UsecaseStatus.failure, error: failure.response)),
-      (movies) => emit(state.copyWith(status: UsecaseStatus.success, movies: movies)),
+    final params = GetMoviesParams(path: ApiConstants.endPoints.NOW_PLAYING(MediaType.movie));
+    return await execute(
+      action: () => getMoviesUsecase(params),
+      onLoading: () => const NowPlayingMoviesState.loading(),
+      onSuccess: (movies) => NowPlayingMoviesState.success(movies),
+      onFailure: (error) => NowPlayingMoviesState.error(error),
     );
   }
 }

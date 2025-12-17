@@ -4,30 +4,27 @@ import 'package:cinemahub/core/widgets/app_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/enums/usecase_status.dart';
-import '../../../../core/networking/interface/error_response.dart';
-import '../../domain/entities/movie.dart';
 import '../logic/now_playing_movies_cubit.dart';
+import '../logic/now_playing_movies_state.dart';
 
 class NowPlayingSection extends StatelessWidget {
   const NowPlayingSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<NowPlayingMoviesCubit, NowPlayingMoviesState, ({UsecaseStatus status, ErrorResponse? error, List<Movie> movies})>(
-      selector: (state) {
-        return (status: state.status, error: state.error, movies: state.movies);
-      },
+    return BlocBuilder<NowPlayingMoviesCubit, NowPlayingMoviesState>(
       builder: (context, state) {
-        final hasError = state.status == UsecaseStatus.failure && state.error != null;
+        final hasError = state.maybeWhen(error: (error) => true, orElse: () => false);
+        final failure = state.maybeWhen(error: (error) => error, orElse: () => null);
         if (hasError) {
-          return SizedBox(height: 400.0, child: Center(child: Text('Error: ${state.error!.message}')));
+          return SizedBox(height: 400.0, child: Center(child: Text('Error: ${failure!.message}')));
         }
+        final movies = state.maybeWhen(orElse: () => const [], success: (movies) => movies);
         return FadeIn(
           duration: const Duration(milliseconds: 500),
           child: CarouselSlider(
             options: CarouselOptions(height: 500.0, viewportFraction: 1.0, onPageChanged: (index, reason) {}),
-            items: state.movies.map((item) {
+            items: movies.map((item) {
               return GestureDetector(
                 key: const Key('openMovieMinimalDetail'),
                 onTap: () {},
